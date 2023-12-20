@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>XSPSX Store</title>
+<script>
+    function checkSignInStatus() {
+        if (localStorage.getItem('isSignedIn') === 'true') {
+            // Assuming you have similar ID attributes for these elements in store.html
+            document.getElementById('signInLink').style.display = 'none';
+            document.getElementById('myAccountLink').style.display = 'inline';
+            document.getElementById('signOutLink').style.display = 'inline';
+        } else {
+            document.getElementById('signInLink').style.display = 'inline';
+            document.getElementById('myAccountLink').style.display = 'none';
+            document.getElementById('signOutLink').style.display = 'none';
+        }
+    }
+
+    function signOut() {
+        localStorage.setItem('isSignedIn', 'false');
+        // Update UI after sign out
+        checkSignInStatus();
+        window.location.href = 'store.html'; // Or wherever you want to redirect after sign out
+    }
+
+    // Check sign-in status on page load
+    window.onload = checkSignInStatus;
+</script>
+<style>
+  body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #000;
+    color: cyan;
+  }
+  .container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding: 20px;
+  }
+  .item {
+    background-color: #111;
+    border: 1px solid cyan;
+    padding: 10px;
+    color: yellow;
+    display: flex;
+    align-items: center; /* Aligns the icon with the text */
+  }
+  .item img {
+    margin-right: 10px; /* Adds spacing between icon and text */
+  }
+  .header {
+    grid-column: span 4;
+    text-align: center;
+  }
+  .logo {
+    height: 150px;
+    width: 150px;
+  }
+  
+  /* Button styles */
+  .button {
+    background-color: cyan;
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+  }
+  
+  .button:hover {
+    background-color: black;
+    color: yellow;
+    border: 1px solid yellow;
+  }
+  
+  /* Game card styles */
+  .game-thumbnail {
+    border: 3px solid cyan;
+    box-shadow: 0 0 10px cyan;
+  }
+
+  .game-card:hover .game-thumbnail {
+    box-shadow: 0 0 20px cyan;
+  }
+
+  .game-info {
+    color: yellow;
+    background-color: #000;
+    padding: 10px;
+    border-left: 3px solid cyan;
+  }
+  
+  /* Featured Games styles */
+  .featured-games {
+    margin-top: 20px;
+  }
+
+  .games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .game-card {
+    background-color: #111;
+    padding: 10px;
+    border: 1px solid cyan;
+    transition: transform 0.2s; /* Animation for card hover */
+  }
+
+  .game-card:hover {
+    transform: translateY(-5px);
+  }
+    /* ... other styles ... */
+
+    .top-bar {
+      display: flex;
+      align-items: center; /* Aligns items vertically */
+      padding: 20px;
+    }
+    .store-logo {
+      margin-right: 20px; /* Spacing between the logo and the grid items */
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* Adjusted for 3 columns instead of 4 */
+      gap: 10px;
+    }
+    /* ... other styles ... */
+    
+    /* Adjustments for game thumbnail sizes */
+      .game-thumbnail {
+        width: 100%; /* Makes the image responsive to the container size */
+        max-width: 200px; /* Sets a max-width for larger screens */
+        height: auto; /* Maintains aspect ratio */
+        margin: auto; /* Centers the image within the card */
+        display: block; /* Ensures the image is a block-level element */
+        border: 3px solid cyan;
+        box-shadow: 0 0 10px cyan;
+      }
+
+      /* Ensure game cards are side by side */
+      .games-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Adjust minmax for desired width */
+        gap: 20px;
+        justify-content: center; /* Centers the grid within its container if there's extra space */
+      }
+
+      .game-card {
+        background-color: #111;
+        padding: 10px;
+        border: 1px solid cyan;
+        transition: transform 0.2s; /* Animation for card hover */
+        overflow: hidden; /* Ensures no content spills out */
+      }
+
+      /* Ensure game cards do not overlap and have some space between them */
+      .game-card:not(:last-child) {
+        margin-bottom: 20px; /* Adds space between cards */
+      }
+
+      .game-card:hover {
+        transform: translateY(-5px);
+      }
+      
+      /* Other styles remain unchanged... */
+      
+      /* ... existing styles ... */
+
+      .item:hover {
+        background-color: cyan; /* Or any highlight color you prefer */
+        color: #000; /* Change text color on hover */
+        cursor: pointer; /* Changes the cursor to indicate the item is clickable */
+      }
+
+      /* Adjust the image border on hover if desired */
+      .item:hover img {
+        border-color: yellow; /* Or any border color you prefer */
+      }
+    
+    /* ... existing styles ... */
+     
+     .header {
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+       padding: 0 20px;
+     }
+
+     .header h1 {
+       margin: 0; /* Removes default margin to align title properly */
+     }
+
+     .navigation-items {
+       display: flex;
+       align-items: center;
+     }
+
+     .nav-item {
+       margin-left: 20px; /* Spacing between nav items */
+       color: cyan; /* Text color */
+       text-decoration: none; /* Removes underline from links */
+       cursor: pointer;
+     }
+
+     .nav-item:hover {
+       text-decoration: underline; /* Adds an underline on hover for better visibility */
+     }
+    
+    .game-screenshot {
+      width: 100%; /* Adjust width as needed */
+      height: auto; /* Maintain aspect ratio */
+      margin-top: 10px; /* Space above the screenshot */
+    }
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+</style>
+</head>
+<body>
+    <div class="container">
+      <div class="header">
+        <h1>XSPSX Store</h1>
+        <div class="navigation-items">
+                      <a href="cart.html" class="nav-item" id="cartLink">Cart</a>
+                      <a href="account.html" class="nav-item" id="myAccountLink" style="display: none;">My Account</a>
+                      <a href="login.html" class="nav-item" id="signInLink">Sign In</a>
+                      <a href="store.html" class="nav-item" id="signOutLink" style="display: none;" onclick="signOut();">Sign Out</a>
+                      <!-- ... [other navigation items] ... -->
+                  </div>
+      </div>
+    <!-- Game Items with Icons -->
+    <div class="item">
+      <img src="xstore.png" alt="Eternal Kingdoms Icon" style="width: 32px; height: 32px;">
+      XSPSX Store
+    </div>
+    <div class="item">
+      <img src="seBlack.png" alt="Game Zero Icon" style="width: 32px; height: 32px;">
+      Stealth Eternal Custom Firmware
+    </div>
+    <div class="item">
+      <img src="spoofer0.png" alt="Eternal Kingdoms Icon" style="width: 32px; height: 32px;">
+      OFW Spoofer
+    </div>
+    <div class="item">
+      <a href="index.html" style="text-decoration: none; color: inherit;">
+        <img src="xspsxinjtr.png" alt="XSPSX Injector Icon" style="width: 32px; height: 32px;">
+        XSPSX Injector
+      </a>
+    </div>
+
+    <!-- Add more items with icons as needed -->
+  </div>
+
+  <!-- Featured Games Section -->
+  <div class="featured-games">
+    <h2>Featured Games & Apps</h2>
+    <div class="games-grid">
+        <!-- Game Card for XSPSX Store -->
+        <div class="game-card">
+          <img src="xstore.png" alt="xspsxstore" class="game-thumbnail">
+          <div class="game-info">
+            <h3>XSPSX Store</h3>
+            <p>The XSPSX Store is the ultimate...</p>
+            <!-- Button to view more details -->
+            <button class="button">View Details</button>
+          </div>
+        </div>
+
+        <!-- Game Card CFW -->
+        <div class="game-card">
+          <img src="seBlack.png" alt="gameZero" class="game-thumbnail">
+          <div class="game-info">
+            <h3>Steal Eternal CFW</h3>
+            <p>"Stealth Eternal" for XSPSX...</p>
+            <!-- Button to view more details -->
+            <button class="button">View Details</button>
+          </div>
+        </div>
+
+        <!-- Game Card for XSPSX Injector -->
+        <div class="game-card">
+          <img src="xspsxinjtr.png" alt="xspsxInjector" class="game-thumbnail">
+          <div class="game-info">
+            <h3>XSPSX Injector</h3>
+            <p>XSPSX Injector App Overview...</p>
+                <!-- Button to view more details -->
+                <button class="button" onclick="location.href='index.html'">View Details</button>
+          </div>
+        </div>
+
+
+        <!-- Game Card for Package Installer -->
+        <div class="game-card">
+          <img src="pkg0.png" alt="Eternal Kingdoms: Oath of the Silver Knight" class="game-thumbnail">
+          <div class="game-info">
+            <h3>Package Installer</h3>
+            <p>Stealth Eternal Package File Installer...</p>
+            <!-- Button to view more details -->
+            <button class="button">View Details</button>
+          </div>
+        </div>
+        
+        
+        <!-- Game Card for Spoofer -->
+        <div class="game-card">
+          <img src="spoofer0.png" alt="xspsxInjector" class="game-thumbnail">
+          <div class="game-info">
+            <h3>OFW Spoofer</h3>
+            <p>Spoof your current firmware...</p>
+            <!-- Button to view more details -->
+            <button class="button">View Details</button>
+          </div>
+        </div>
+        
+        <!-- Game Card for SE Toolbox -->
+        <div class="game-card">
+          <img src="toolboxBest0.png" alt="xspsxInjector" class="game-thumbnail">
+          <div class="game-info">
+            <h3>SE Toolbox</h3>
+            <p>Stealth Eternal Toolbox Overview...</p>
+            <!-- Button to view more details -->
+            <button class="button">View Details</button>
+          </div>
+        </div>
+        
+        <!-- Game Card for CPUP File Manager -->
+        <div class="game-card">
+          <img src="pupFM0.png" alt="xspsxInjector" class="game-thumbnail">
+          <div class="game-info">
+            <h3>CPUP File Manager</h3>
+            <p>CPUP File Manager Overview...</p>
+            <!-- Button to view more details -->
+            <button class="button">View Details</button>
+          </div>
+        </div>
+        
+        <!-- Game Card Developer Tools -->
+        <div class="game-card">
+          <img src="supporterToken.png" alt="Eternal Kingdoms: Oath of the Silver Knight" class="game-thumbnail">
+          <div class="game-info">
+            <h3>Supporter Tokens</h3>
+            <p>Get yours today!</p>
+            <!-- Button to view more details -->
+            <button class="button">View Details</button>
+          </div>
+        </div>
+        
+        <!-- Game Card Developer Tools -->
+        <div class="game-card">
+          <img src="devToken.png" alt="Eternal Kingdoms: Oath of the Silver Knight" class="game-thumbnail">
+          <div class="game-info">
+            <h3>Developer Tools</h3>
+            <p>Tools for XSPSX Homebrew...</p>
+            <!-- Button to view more details -->
+            <button class="button">View Details</button>
+          </div>
+        </div>
+      
+
+</body>
+</html>
+

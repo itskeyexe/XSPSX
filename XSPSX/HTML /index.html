@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: white;
+        }
+        
+        .navbar {
+            display: flex;
+            align-items: center;
+            height: 75px;
+            background-color: black;
+            color: white;
+        }
+        
+        .logo {
+            margin-left: 10px;
+            height: 50px;
+            width: 50px;
+        }
+        
+        .title {
+            margin-left: 10px;
+            font-size: 24px;
+            color: yellow; /* Sets the title text color to yellow */
+        }
+        
+        .dropdown {
+            margin-left: 10px;
+            position: relative;
+        }
+        
+        .dropbtn {
+            font-size: 16px;
+            border: none;
+            outline: none;
+            background-color: inherit;
+            color: cyan; /* Sets the button text color to cyan */
+            cursor: pointer;
+        }
+        
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: grey;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+        
+        .dropdown-content a {
+            color: cyan;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+        
+        .dropdown-content a:hover {
+            background-color: yellow;
+        }
+        
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Styles for Tutorials and Supporters Section */
+        .tutorial, .supporters {
+            margin: 20px;
+            padding: 15px;
+            background-color: transparent; /* Changed from #333 to transparent */
+            color: white;
+            border-radius: 5px;
+        }
+
+        .tutorial img, .supporters img {
+            width: 100%;
+            height: auto;
+            margin-top: 10px;
+        }
+
+        .tutorial-step {
+            margin-bottom: 15px;
+        }
+        
+        /* Custom CSS for h2 and h3 tags */
+             h2 {
+                 color: yellow;
+             }
+
+             h3 {
+                 color: cyan;
+             }
+        
+        .store-link {
+            color: cyan; /* Example color */
+            margin-left: 10px;
+            text-decoration: none;
+            font-size: 16px;
+            /* Add more styling as needed */
+        }
+
+        .store-link:hover {
+            color: yellow; /* Example hover color */
+        }
+        
+        .highlighted-text {
+            color: yellow;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <img src="se.png" alt="Logo" class="logo">
+        <span class="title">Official Injector for Stealth Eternal Custom Firmware </span>
+        <img src="xspsxinjtrClear.png" alt="Logo" class="logo">
+     
+     <div class="dropdown">
+         <button class="dropbtn">Download Links &#9662;</button>
+         <div class="dropdown-content">
+             <button class="dropbtn" onclick="downloadButtonPressed()">Download Stealth Eternal CFW v1.11 [!] &#9662;</button>
+             <!-- Safari Injector download now opens the app via the URL scheme -->
+             <a href="xspsxinjectorapp://" class="dropbtn">Download Safari Injector v0.01 [!] &#9662;</a>
+             <button class="dropbtn" onclick="downloadButtonPressed()">Download Stealth Eternal Toolbox v1.11 [!] &#9662;</button>
+             <button class="dropbtn" onclick="downloadButtonPressed()">Download OFW Spoofer v1.11 [!] &#9662;</button>
+             <!-- Text file download link -->
+             <a href="https://example.com/downloads/myfile.txt" download class="dropbtn">Download Text File [!] &#9662;</a>
+             <button class="dropbtn" onclick="toggleDropdown()">Exit this Menu [!] &#9662;</button>
+         </div>
+     </div>
+
+        <img src="xstore.png" alt="Logo" class="logo">
+        <!-- Add the XSPSX Store tab here -->
+            <h3><a href="store.html" class="store-link"> XSPSX Store </a></h3>
+        <img src="xspsxinjtrClear.png" alt="Logo" class="logo">
+            <!-- About XSPSX Store tab here -->
+                <h3><a href="about.html" class="store-link"> About XSPSX </a></h3>
+                <img src="se.png" alt="Logo" class="logo">
+    </div>
+
+
+    <center>
+        <img src="xspsxinjtrClear.png" alt="Logo0" class="logo" style="height: 150px; width: 150px;">
+        <h2>Welcome to the Best Custom Firmware in the World.</h2>
+        <h3>[!] Latest Releases [!]</h3>
+        <p>XSPSX Injector - [Injector_v0.01_Safari.ipa]</p>
+        <p>XSPSX Stealth Eternal - [v1.11_DEX_UPDATE.PUP]</p>
+        <p>XSPSX S.E. Toolbox - [S.E._toolbox_v1.11.pkg]</p>
+        <p>XSPSX OFW Spoofer - [OFW_Spoofer_v1.11.pkg]</p>
+        <h3>[!] Features [!]</h3>
+        <p><span class="highlighted-text">Patched -</span> LV1 Kernel to enable Package File Installer</p>
+        <p><span class="highlighted-text">Patched -</span> Enabled Access to CPU and GPU Temperature readouts</p>
+        <p><span class="highlighted-text">Patched -</span> Display System Info and Kernel Status</p>
+        <p><span class="highlighted-text">Patched -</span> HDDO Access to Copy, Paste, & Delete Files [!] NOT STABLE [!]</p>
+        <p><span class="highlighted-text">Patched -</span> Music Tools to enable Background Audio to enhance the app experience </p>
+
+       
+        
+    </center>
+
+    <!-- Tutorial Section for Safari Users -->
+    <div class="tutorial">
+        <h3>Installation Guide for Safari Users [!] This is for users who DO NOT have XSPSX Installed [!]</h3>
+        <div class="tutorial-step">
+            <p><span class="highlighted-text">1. Click the appropriate link from the Menu:  [Injector_v0.01_Safari.ipa]</span></p>
+            <img src="safari01.png" alt="Step 1 Screenshot">
+        </div>
+        <div class="tutorial-step">
+            <p><span class="highlighted-text">2. Open the XSPSX Injector app, then run the injector.</span></p>
+            <img src="landscapeInjector.jpeg" alt="Step 2 Screenshot">
+        </div>
+        <p><span class="highlighted-text"> Enjoy XSPSX! Access <a href="http://xspsxinjector.me">xspsxinjector.me</a> to install the latest CFW or tools to customize your experience!</span></p>
+    </div>
+
+    <!-- Tutorial Section for Users with XSPSX OFW -->
+    <div class="tutorial">
+        <h3>Installation Guide for Users with XSPSX OFW [!] For Users who are not yet on CFW [!]</h3>
+        <div class="tutorial-step">
+            <p><span class="highlighted-text">1. Download the latest CFW: [RSX_v1.11_DEX_UPDATE.PUP] from XSPSX's built-in browser.</span></p>
+            <img src="safari01.png" alt="Step 1 OFW Screenshot">
+        </div>
+        <div class="tutorial-step">
+            <p><span class="highlighted-text">2. Install in your system settings.</span></p>
+            <img src="111dex.jpeg" alt="Step 2 OFW Screenshot">
+        </div>
+    </div>
+
+    <!-- Additional Tools Section -->
+    <div class="tutorial">
+        <h3>Additional Tools - SE Toolbox v1.11</h3>
+        <p><span class="highlighted-text">Download the Stealth Eternal Toolbox via the internal XSPSX browser and install it via the package manager under 'Games' in the main menu of XSPSX if you already have the CFW installed.</span></p>
+            <p>[RSX_toolbox_v1.11.pkg]</p>
+            <img src="111Toolbox.jpeg" alt="Step 2 OFW Screenshot">
+        <!-- Add screenshots or additional steps if necessary -->
+    </div>
+    
+    <!-- Supporters Section -->
+    <div class="supporters">
+        <img src="supporterToken.png" alt="Logo0" class="logo" style="height: 150px; width: 150px;">
+        <h3>[!] Supporters of XSPSX CFW, THANK YOU [!]</h3>
+        <ul><span class="highlighted-text">
+            <li>Dill353 since November 2023</li>
+            <li>Corpse343 since November 2023</li>
+            <li>itskeyexe since November 2023</li>
+            <li>[!] Future Member</li>
+            <li>[!] Future Member</li></span>
+            
+            <!-- Add more as needed -->
+        </ul>
+    </div>
+    
+    <!-- Developer Tools -->
+    <div class="supporters">
+        <img src="devToken.png" alt="Logo0" class="logo" style="height: 150px; width: 150px;">
+        <h3>[!] Developer Tools [!]</h3>
+        <ul>
+            <p><span class="highlighted-text"> XSPSX is an Open Source Project! </span></p>
+            <li><a href="https://github.com/itskeyexe/XSPSX-Injector">Official XSPSX Injector Github</a></li>
+            <li><a href="https://github.com/itskeyexe/XSPSX-Injector">XSPSX.ipa</a></li>
+            <li><a href="http://xspsxinjector.me">xspsxinjector.me</a></li>
+            <li><a href="https://twitter.com/itskeyexe"> itskeyexe's Twitter</a></li>
+            <!-- Add more as needed -->
+        </ul>
+    </div>
+    
+    <!-- Legal -->
+    <div class="supporters">
+        <h3>[!] Legal [!]</h3>
+        <ul>
+            <div>
+                <p><strong>System Software Update Agreement for RSX Custom Firmware</strong></p>
+                
+                <p><strong>Notice:</strong> The RSX Custom Firmware is an independent update not officially affiliated with or supported by XSPSX. It's a custom modification that changes how your system operates.</p>
+
+                <p><strong>No Warranties:</strong> This firmware is provided as-is, with no guarantees. We, the creators of RSX Custom Firmware, cannot promise that it will work perfectly or safely. It comes without any express or implied warranties.</p>
+
+                <p><strong>Risk Acknowledgment:</strong> By choosing to install RSX Custom Firmware, you understand and accept the risks. These risks may include potential malfunctions or 'bricking' of your device, software errors, and possible loss of data. We're not responsible for any damage or loss that might occur from using this firmware.</p>
+
+                <p><strong>Your Responsibility:</strong> Installing this firmware is entirely at your own risk. If you're okay with these terms and fully understand the risks involved, you may proceed with the installation. Your action of installing signifies your acceptance of these conditions.</p>
+
+                <p>Sincerely, itskeyexe</p>
+            </div>
+
+           
+            <!-- Add more as needed -->
+        </ul>
+    </div>
+
+
+
+    <script>
+        function downloadButtonPressed() {
+            // Trigger the event to update the label alpha
+            window.webkit.messageHandlers.downloadButtonPressed.postMessage("downloadButtonPressed");
+        }
+        
+        // NEED URL CALL TO OPEN OTHER APP xspsxinjectorapp:// when the user presses the [Injector_v0.01_Safari.ipa] link
+
+        function toggleDropdown() {
+            var dropdownContent = document.querySelector('.dropdown-content');
+            if (dropdownContent.style.display === 'block') {
+                dropdownContent.style.display = 'none';
+            } else {
+                dropdownContent.style.display = 'block';
+            }
+        }
+    </script>
+
+</body>
+</html>

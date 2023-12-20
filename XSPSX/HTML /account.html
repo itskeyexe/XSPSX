@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - XSPSX Console</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #000;
+            color: cyan;
+        }
+        .container {
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+        }
+        .navigation-items {
+            display: flex;
+            align-items: center;
+        }
+        .nav-item {
+            margin-left: 20px;
+            color: cyan;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .nav-item:hover {
+            text-decoration: underline;
+        }
+        .profile-container {
+            background-color: #111;
+            border: 1px solid cyan;
+            padding: 10px;
+            color: yellow;
+            max-width: 300px;
+            margin: auto;
+        }
+        .profile-photo {
+            width: 100px;
+            height: 100px;
+            background-color: #333;
+            border-radius: 50%;
+            margin: auto;
+            display: block;
+        }
+        .status {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .token-icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background-color: yellow;
+            border-radius: 50%;
+            position: relative;
+            top: -2px;
+            left: 5px;
+        }
+        /* ... other styles ... */
+        
+        .profile-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: auto;
+            display: block;
+        }
+
+        .token-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            position: relative;
+            top: -2px;
+            left: 5px;
+        }
+        .bio, .account-balance {
+            background-color: #222;
+            border: 1px solid cyan;
+            padding: 10px;
+            margin-top: 10px;
+            color: yellow;
+        }
+
+        .bio h3, .account-balance h3 {
+            color: cyan;
+        }
+
+        /* ... existing styles ... */
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>My Account - XSPSX Console</h1>
+            <div class="navigation-items">
+                <a href="store.html" class="nav-item">Store</a>
+                <a href="about.html" class="nav-item">About</a>
+                <!-- Add other navigation items as needed -->
+            </div>
+        </div>
+        <!-- Profile Container -->
+        <div class="profile-container">
+            <img src="profile.jpeg" alt="Profile Photo" class="profile-photo">
+            <div class="status">
+                XSPSX Member Status: <span>XSPSX Developer & Founder</span>
+                <img src="devToken.png" alt="Developer Token" class="token-icon">
+            </div>
+            
+            <!-- Bio Section -->
+            <div class="bio">
+                <h3>Bio</h3>
+                <p>INTJ with a passion for technology & active diverse hobbies. Retail Rep at T-Mobile with a love for iOS mobile development.</p>
+            </div>
+
+            <!-- Account Balance -->
+            <div class="account-balance">
+                <h3>Account Balance</h3>
+                <p>$1,116,000.00</p> <!-- Replace with dynamic data if available -->
+            </div>
+
+            <!-- Add more profile details and settings here -->
+        </div>
+        </div>
+    </div>
+</body>
+</html>
+
