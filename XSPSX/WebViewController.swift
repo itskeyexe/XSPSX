@@ -12,20 +12,16 @@ import AVFoundation
 import WebKit
 
 class WebViewController: UIViewController, AVPlayerViewControllerDelegate, WKNavigationDelegate, WKScriptMessageHandler {
-
     @IBOutlet var webView: WKWebView!
     @IBOutlet weak var videoLayer: UIView!
     @IBOutlet weak var downloadStatusLabel: UILabel!
     @IBOutlet weak var closeBrowserButton: UIButton!
     private var currentStepIndex = 0
-    
     func showInstallProgress() {
         let installView = UpdateInstallView()
         installView.frame = self.view.bounds
         self.view.addSubview(installView)
-
         let steps = [
-            
                    "Verifying integrity of kernel modules...",
                    "Allocating resources for system update...",
                    "Decompressing firmware packages...",
@@ -39,61 +35,47 @@ class WebViewController: UIViewController, AVPlayerViewControllerDelegate, WKNav
                    "Synchronizing updated components with system registry...",
                    "Downloading..."
                ]
-
         currentStepIndex = 0 // Reset the index
-
         installView.onCancel = { [weak installView, weak self] in
             installView?.removeFromSuperview()
             self?.resetUpdateUI()
         }
-
         // Initial call to start the progress update
         updateProgress(installView: installView, progress: 0, steps: steps)
     }
-
     func updateProgress(installView: UpdateInstallView, progress: Float, steps: [String]) {
         var currentProgress = progress
         currentProgress += 0.0333 // Increment progress
-
         if currentProgress >= 1.0 {
             currentProgress = 1.0
             installView.removeFromSuperview()
             completeDownloadProcess()
         } else {
             installView.updateProgress(currentProgress)
-
             if currentStepIndex < steps.count {
                 installView.statusLabel.text = steps[currentStepIndex]
                 currentStepIndex += 1
             }
-
             // Randomize the next update interval between 0.3 and 1.0 seconds
             let nextUpdateInterval = Float.random(in: 0.3...1.0)
-
             // Schedule the next update
             DispatchQueue.main.asyncAfter(deadline: .now() + TimeInterval(nextUpdateInterval)) { [weak self] in
                 self?.updateProgress(installView: installView, progress: currentProgress, steps: steps)
             }
         }
     }
-
-
     func completeDownloadProcess() {
         resetUpdateUI()
     }
-
     func resetUpdateUI() {
         webView.removeFromSuperview()
     }
- 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         coldboot()
         setupWebView()
         downloadStatusLabel.alpha = 0.0
         webView.configuration.userContentController.add(self, name: "downloadButtonPressed")
-        
     }
     
     func coldboot() {
@@ -130,7 +112,6 @@ class WebViewController: UIViewController, AVPlayerViewControllerDelegate, WKNav
         let searchBar = UISearchBar(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 44))
         searchBar.placeholder = "https://xspsxinjector.me"
         view.addSubview(searchBar)
-
         let webFrame = CGRect(x: 0, y: searchBar.frame.maxY, width: view.bounds.width, height: view.bounds.height - searchBar.frame.height)
         webView = WKWebView(frame: webFrame)
         webView.navigationDelegate = self
@@ -140,23 +121,16 @@ class WebViewController: UIViewController, AVPlayerViewControllerDelegate, WKNav
         webView.backgroundColor = .clear
         webView.configuration.allowsInlineMediaPlayback = true
         view.insertSubview(webView, belowSubview: searchBar)
-
         // Load your HTTPS URL
         if let url = URL(string: "https://xspsxinjector.me") {
             let request = URLRequest(url: url)
             webView.load(request)
         }
-
         // Apply fade-in effect once the content has begun to load
         webView.navigationDelegate = self
         view.bringSubviewToFront(closeBrowserButton)
     }
-        
-      
-    
-
-
-    
+  
     // WKNavigationDelegate methods
       func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
           print("Error during provisional navigation: \(error.localizedDescription)")
@@ -167,15 +141,111 @@ class WebViewController: UIViewController, AVPlayerViewControllerDelegate, WKNav
       }
 
 
-    
     func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
-        if message.name == "downloadButtonPressed" {
-            // Handle the download event here
-            // Launch the download view
-            showDownloadFileView()
+        if message.name == "downloadButtonPressed", let downloadType = message.body as? String {
+            switch downloadType {
+            case "textFile":
+                // Handle text file download
+                if let url = URL(string: "https://xspsxinjector.me/testFile.txt") {
+                    startFileDownload(from: url)
+                }
+            case "firmware":
+                // Handle firmware download
+                if let url = URL(string: "https://xspsxinjector.me/stealthUpdate_v1.11.pkg") {
+                    startFirmwareDownload(from: url)
+                }
+            case "toolbox":
+                // Handle toolbox download
+                if let url = URL(string: "https://xspsxinjector.me/toolbox_v1.11.pkg") {
+                    startFileDownload(from: url)
+                }
+            case "spoofer":
+                // Handle spoofer download
+                if let url = URL(string: "https://xspsxinjector.me/spoofer_v1.11.pkg") {
+                    startFileDownload(from: url)
+                }
+            default:
+                break
+            }
         }
     }
+
     
+    func startFileDownload(from url: URL) {
+        showDownloadProgressView(for: "File")
+        let downloadTask = URLSession.shared.downloadTask(with: url) { [weak self] (tempURL, response, error) in
+            guard let tempURL = tempURL else { return }
+            do {
+                let fileManager = FileManager.default
+                let documentsPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+                let downloadsPath = documentsPath.appendingPathComponent("DEV_HDD0/DOWNLOADS", isDirectory: true)
+                
+                if !fileManager.fileExists(atPath: downloadsPath.path) {
+                    try fileManager.createDirectory(at: downloadsPath, withIntermediateDirectories: true, attributes: nil)
+                }
+                
+                let destinationPath = downloadsPath.appendingPathComponent(url.lastPathComponent)
+                if fileManager.fileExists(atPath: destinationPath.path) {
+                    try fileManager.removeItem(at: destinationPath)
+                }
+                
+                try fileManager.moveItem(at: tempURL, to: destinationPath)
+                DispatchQueue.main.async {
+                    self?.downloadStatusLabel.text = "Download Complete"
+                    print("File saved to: \(destinationPath)")
+                }
+            } catch {
+                print("Error saving file: \(error)")
+            }
+        }
+        downloadTask.resume()
+    }
+
+    func startFirmwareDownload(from url: URL) {
+        showDownloadProgressView(for: "Firmware")
+        let downloadTask = URLSession.shared.downloadTask(with: url) { [weak self] (tempURL, response, error) in
+            guard let tempURL = tempURL else { return }
+            do {
+                let fileManager = FileManager.default
+                let documentsPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+                let downloadsPath = documentsPath.appendingPathComponent("DEV_HDD0/DOWNLOADS", isDirectory: true)
+                
+                if !fileManager.fileExists(atPath: downloadsPath.path) {
+                    try fileManager.createDirectory(at: downloadsPath, withIntermediateDirectories: true, attributes: nil)
+                }
+                
+                let destinationPath = downloadsPath.appendingPathComponent(url.lastPathComponent)
+                if fileManager.fileExists(atPath: destinationPath.path) {
+                    try fileManager.removeItem(at: destinationPath)
+                }
+                
+                try fileManager.moveItem(at: tempURL, to: destinationPath)
+                DispatchQueue.main.async {
+                    self?.downloadStatusLabel.text = "Firmware Download Complete"
+                    print("Firmware file saved to: \(destinationPath)")
+                }
+            } catch {
+                DispatchQueue.main.async {
+                    self?.downloadStatusLabel.text = "Error: \(error.localizedDescription)"
+                }
+                print("Error saving firmware file: \(error)")
+            }
+        }
+        downloadTask.resume()
+    }
+
+    func showDownloadProgressView(for title: String) {
+        let downloadView = downloadProgressView(frame: view.bounds)
+        downloadView.statusLabel.text = "\(title) Download in Progress"
+        view.addSubview(downloadView)
+        downloadView.onCancel = { [weak downloadView] in
+            downloadView?.removeFromSuperview()
+            // Additional cancellation handling
+        }
+        // Start the progress update process
+        updateDownloadProgress(progressView: downloadView, progress: 0)
+    }
+
     private func showDownloadFileView() {
         let downloadView = downloadFileView(frame: view.bounds)
         view.addSubview(downloadView)
@@ -190,7 +260,7 @@ class WebViewController: UIViewController, AVPlayerViewControllerDelegate, WKNav
             self?.startDownloadProcess()
         }
     }
-
+    
     private func startDownloadProcess() {
         let progressView = downloadProgressView(frame: view.bounds)
         view.addSubview(progressView)
@@ -218,30 +288,23 @@ class WebViewController: UIViewController, AVPlayerViewControllerDelegate, WKNav
             }
         }
     }
-    
-    
 }
-
 
 class downloadFileView: UIView {
     var onCancel: (() -> Void)?
     var onInstall: (() -> Void)?
-
     private let titleLabel = UILabel()
     private let subtitleLabel = UILabel()
     private let cancelButton = UIButton()
     private let installButton = UIButton()
     private let imageView = UIImageView()
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
     }
-
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
     private func setupView() {
         self.backgroundColor = .black
         self.alpha = 0.88
@@ -250,42 +313,30 @@ class downloadFileView: UIView {
         self.addSubview(cancelButton)
         self.addSubview(installButton)
         self.addSubview(imageView)
-        
         // Configure imageView
            imageView.translatesAutoresizingMaskIntoConstraints = false
            imageView.contentMode = .scaleAspectFit // Adjust this as needed
-           imageView.image = UIImage(named: "stealtheternalClear") // Replace with your image name
-
-   
-
+           imageView.image = UIImage(named: "stealth00001") // Replace with your image name
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         subtitleLabel.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         installButton.translatesAutoresizingMaskIntoConstraints = false
-
         NSLayoutConstraint.activate([
-            
             // ImageView constraints
                     imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
                     imageView.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -20),
                     imageView.widthAnchor.constraint(equalToConstant: 100), // Adjust width as needed
                     imageView.heightAnchor.constraint(equalToConstant: 100), // Adjust height as needed
-                    
             titleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             titleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: -30),
-
             subtitleLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             subtitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
-
             cancelButton.trailingAnchor.constraint(equalTo: self.centerXAnchor, constant: -10),
             cancelButton.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 20),
-
             installButton.leadingAnchor.constraint(equalTo: self.centerXAnchor, constant: 10),
             installButton.topAnchor.constraint(equalTo: subtitleLabel.bottomAnchor, constant: 20),
-
             installButton.widthAnchor.constraint(equalTo: cancelButton.widthAnchor)
         ])
-
         //add an image centered just above this text
         titleLabel.text = "Stealth Eternal [v1.11_DEX_UPDATE.PUP]"
         subtitleLabel.text = "Download this file?"
@@ -296,8 +347,6 @@ class downloadFileView: UIView {
         cancelButton.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
         installButton.addTarget(self, action: #selector(installButtonTapped), for: .touchUpInside)
     }
-
-
     @objc private func installButtonTapped() {
         onInstall?()
     }
@@ -306,7 +355,6 @@ class downloadFileView: UIView {
         onCancel?()
     }
 }
-
 
 class downloadProgressView: UIView {
     var onCancel: (() -> Void)?

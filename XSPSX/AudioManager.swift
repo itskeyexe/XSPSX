@@ -93,7 +93,7 @@ class AudioManager {
         
         func playBackEffect() {
             do {
-                let soundEffectPath = Bundle.main.path(forResource: "sexySelect", ofType: "wav")
+                let soundEffectPath = Bundle.main.path(forResource: "psClick", ofType: "wav")
                 let soundEffectURL = URL(fileURLWithPath: soundEffectPath!)
                 backSoundAudioPlayer = try AVAudioPlayer(contentsOf: soundEffectURL)
                 backSoundAudioPlayer?.numberOfLoops = 0 // Play only once (no loop)
@@ -132,7 +132,7 @@ class AudioManager {
         
         func playColdBootSound() {
             do {
-                let soundEffectPath = Bundle.main.path(forResource: "cold000", ofType: "wav")
+                let soundEffectPath = Bundle.main.path(forResource: "ColdbootNewest", ofType: "wav")
                 let soundEffectURL = URL(fileURLWithPath: soundEffectPath!)
                 coldBootSoundAudioPlayer = try AVAudioPlayer(contentsOf: soundEffectURL)
                 coldBootSoundAudioPlayer?.numberOfLoops = 0 // Play only once (no loop)

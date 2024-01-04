@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-
 class SystemData {
     static let shared = SystemData()
 
@@ -138,27 +136,21 @@ extension UIViewController {
         // Ensure this runs on the main thread since it's updating the UI
         DispatchQueue.main.async {
             AudioManager.shared.playFeatUnlockedSoundEffect()
-            
             let alertViewController = UIViewController()
             alertViewController.view.backgroundColor = .clear
             alertViewController.modalPresentationStyle = .overFullScreen
-            
             let customView = UIView()
             customView.backgroundColor = UIColor.black.withAlphaComponent(0.8)
             customView.layer.cornerRadius = 10
-            
             let screenWidth = UIScreen.main.bounds.width
             let customViewWidth: CGFloat = 260
             let customViewHeight: CGFloat = 80
             let xPosition = screenWidth - customViewWidth - 20
             let yPosition: CGFloat = 20
-            
             customView.frame = CGRect(x: xPosition, y: yPosition, width: customViewWidth, height: customViewHeight)
-            
             let imageView = UIImageView(image: UIImage(named: iconName))
             imageView.contentMode = .scaleAspectFit
             imageView.frame = CGRect(x: 10, y: 10, width: 60, height: 60)
-            
             let label = UILabel()
             label.frame = CGRect(x: 80, y: 10, width: customViewWidth - 90, height: 60)
             label.text = message
@@ -166,11 +158,9 @@ extension UIViewController {
             label.numberOfLines = 2
             label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
             label.textAlignment = .left
-            
             customView.addSubview(imageView)
             customView.addSubview(label)
             alertViewController.view.addSubview(customView)
-            
             alertViewController.view.alpha = 0
             self.present(alertViewController, animated: false) {
                 UIView.animate(withDuration: 0.5, animations: {

@@ -26,12 +26,27 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
             UserDefaults.standard.set(newValue, forKey: "isJailbreakEnabled")
         }
     }
+    @IBOutlet weak var themeOptionsView: UIView!
+    @IBOutlet weak var themeOption1: UIButton!
+    @IBOutlet weak var themeOption2: UIButton!
+    @IBOutlet weak var themeOption3: UIButton!
+    @IBOutlet weak var themeOption4: UIButton!
+    var selectedTheme: Theme?
+    var themes: [Theme] = [
+           Theme(name: "Stars", videoFileName: "starsXMB"),
+           Theme(name: "Xray", videoFileName: "Xray"),
+           Theme(name: "Water", videoFileName: "underwaterXMB"),
+           Theme(name: "XSPSX", videoFileName: "cyan4")
+       ]
     // Add a property to keep track of the last selected item
+    var isFirstTap = true
+    var blinkingIndexPath: IndexPath?
+    var selectedIndexPath: IndexPath?
     var lastSelectedIndexPath: IndexPath?
     var currentUpdateVersion: String = "XSPSX 1.11 OFW" // Default version
     var customSegmentedControl: CustomSegmentedControl!
     var selectedIndex: Int = 0
-    let padding: CGFloat = 340 // Adjust the padding value as needed
+    let padding: CGFloat = 340
     //JailbreakViewUI elements// show these if the jailbreak toggle flag is enabled otherwise hide and disable the buttons and UI elements
     @IBOutlet weak var ipAddressLabel: UILabel!
     @IBOutlet weak var cpuTempLabel: UILabel!
@@ -39,14 +54,8 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
     //Package Installer view, this will be active and enabled if jailbreak mode is enabled and package manager is selected
     @IBOutlet weak var timeDateLabel: UILabel!
     var dateTimer: Timer?
-    var packageFileDirectoryDataSource: [String] = []
-    var packageInstallerOptions = ["Install Package Files", "Delete Package Files", "Close Installer"]
-    @IBOutlet weak var packageFileHome: UITableView!
-    @IBOutlet weak var packageFileDirectory: UITableView!
-    @IBOutlet weak var packageInstallerView: UIView!
     @IBOutlet weak var StatusLabelPkgMngr: UILabel!
     @IBOutlet weak var gameThumbnail: UIImageView!
-    @IBOutlet weak var maskViewLayer: UIView!
     var tableView: UITableView!
     @IBOutlet weak var videoLayer: UIView!
     @IBOutlet weak var signInWebView: WKWebView!
@@ -59,30 +68,30 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
     var currentSelectedItem: String?
     var previouslySelectedIndexPath: IndexPath?
     @IBOutlet weak var batteryIcon: UIImageView!
+    var packageFileDirectoryDataSource = ["Install Package Files"]
     let batteryImageArray = ["battery0", "battery01", "battery02", "battery03"]
     let categories = ["Users","System", "Media", "Games", "Network", "Friends"]
     var categoryData = [
         ["itskeyexe", "Dill353", "log off", "Placeholder1", "Placeholder2", "Placeholder3"],
-        ["Settings", "XSPSX Themes", "System Info", "Transfer Utility", "Placeholder1", "Placeholder2"],
+        ["System Settings",  "System Info", "Transfer Utility", "XSPSX Themes", "Placeholder1", "Placeholder2"],
         ["Music Player", "Photo Gallery", "Video Player", "Placeholder1", "Placeholder2", "Placeholder3"],
-        ["RetroArch", "Game Zero", "Placeholder1", "Placeholder2", "Placeholder3", "Placeholder4"],
+        ["Save Data", "Games", "RetroArch", "Game Zero", "Placeholder1", "Placeholder2", "Placeholder3", "Placeholder4"],
         ["Sign in", "XSPSX Store", "Web Browser", "Placeholder1", "Placeholder2", "Placeholder3"],
         ["Online:", "Message", "Achievements", "Placeholder1", "Placeholder2", "Placeholder3"]
     ]
     let jailbrokenCategoryData = [
         ["itskeyexe", "Dill353", "log off", "Placeholder1", "Placeholder2", "Placeholder3"],
-        ["Settings", "XSPSX Themes", "System Info", "Transfer Utility", "Debug", "Placeholder"],
+        ["System Settings",  "System Info", "Transfer Utility", "XSPSX Themes", "Placeholder1", "Debug"],
         ["Music Player", "Photo Gallery", "Video Player", "Placeholder1", "Placeholder2", "Placeholder3"],
-        ["RetroArch", "Game Zero", "Package Manager", "Update Spoofer", "Stealth Toolbox", "Syscall Enabler"],
+        ["Save Data", "Games", "RetroArch", "Game Zero", "Package Manager", "Update Spoofer", "Stealth Toolbox", "Syscall Enabler"],
         ["Sign in", "XSPSX Store", "Web Browser", "Placeholder1", "Placeholder2", "Placeholder3"],
         ["Online:", "Message", "Achievements", "Placeholder1", "Placeholder2", "Placeholder3"]
     ]
-    
     let nonJailbrokenCategoryData = [
         ["itskeyexe", "Dill353", "log off", "Placeholder1", "Placeholder2", "Placeholder3"],
-        ["Settings", "XSPSX Themes", "System Info", "Transfer Utility", "Placeholder1", "Placeholder2"],
+        ["System Settings",  "System Info", "Transfer Utility", "XSPSX Themes", "Placeholder1", "Placeholder2"],
         ["Music Player", "Photo Gallery", "Video Player", "Placeholder1", "Placeholder2", "Placeholder3"],
-        ["RetroArch", "Game Zero", "Placeholder1", "Placeholder2", "Placeholder3", "Placeholder4"],
+        ["Save Data", "Games", "RetroArch", "Game Zero", "Placeholder1", "Placeholder2", "Placeholder3", "Placeholder4"],
         ["Sign in", "XSPSX Store", "Web Browser", "Placeholder1", "Placeholder2", "Placeholder3"],
         ["Online:", "Message", "Achievements", "Placeholder1", "Placeholder2", "Placeholder3"]
     ]
@@ -91,12 +100,60 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
         let fileURLs = SystemData.shared.listFiles(at: SystemData.shared.gamesDirectoryURL)
         packageFileDirectoryDataSource = fileURLs.map { $0.lastPathComponent }
     }
+    let iconMapping: [String: String] = [
+        // Users category icons
+        "itskeyexe": "folderStar",
+        "Dill353": "folderStar",
+        "log off": "folderStar",
+        "Placeholder1": "folderStar",
+        // System category icons
+        "System Settings": "wrench",
+        "XSPSX Themes": "themes",
+        "System Info": "wrench",
+        "Transfer Utility": "wrench",
+        "Debug": "toolFolder",
+        "Placeholder": "wrench",
+        "placeholder": "wrench",
+        // Media category icons
+        "Music Player": "note",
+        "Photo Gallery": "note",
+        "Video Player": "note",
+        // Games category icons
+        "Games": "gameCover",
+        "Save Data": "memoryCard",
+        "RetroArch": "retroarch",
+        "Game Zero": "gameZero",
+        "Package Manager": "folderStar",
+        "Update Spoofer": "spoofFolder",
+        "Stealth Toolbox": "toolFolder",
+        "Syscall Enabler": "folderStar",
+        // Network category icons
+        "Sign in": "pointer",
+        "XSPSX Store": "storeIcon",
+        "Web Browser": "browser0",
+        // Friends category icons
+        "Online:": "folderStar",
+        "Message": "folderStar",
+        "Achievements": "folderStar"
+    ]
+//Load View ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarItem = nil
+        selectedTheme = themes.first(where: { $0.videoFileName == "starsXMB" }) ?? themes.first
+        themeOptionsView.isHidden = true
+        themeOption1.addTarget(self, action: #selector(themeOptionSelected(_:)), for: .touchUpInside)
+        themeOption2.addTarget(self, action: #selector(themeOptionSelected(_:)), for: .touchUpInside)
+        themeOption3.addTarget(self, action: #selector(themeOptionSelected(_:)), for: .touchUpInside)
+        themeOption4.addTarget(self, action: #selector(themeOptionSelected(_:)), for: .touchUpInside)
+                themeOption1.tag = 0
+                themeOption2.tag = 1
+                themeOption3.tag = 2
+                themeOption4.tag = 3
         coldboot()
+        gameThumbnail.alpha = 0
+        gameThumbnail.isHidden = true
         loadPackageFileDirectoryData()
-        packageInstallerView.isHidden = true
         currentUpdateVersion = SystemData.shared.currentUpdateVersion
         customSegmentedControl = CustomSegmentedControl()
         customSegmentedControl.customDelegate = self
@@ -122,14 +179,12 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "MenuItemCell")
         view.addSubview(tableView)
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        // Set up the constraints for tableView.
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding), // Adjust the trailing constraint
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-        // Bring the custom segmented control to the front.
         view.bringSubviewToFront(customSegmentedControl)
         customSegmentedControl.layer.zPosition = 1
         updateBatteryStatus()
@@ -146,19 +201,19 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
         NotificationCenter.default.addObserver(self, selector: #selector(appDidEnterBackground), name: UIApplication.didEnterBackgroundNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(appWillTerminate), name: UIApplication.willTerminateNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(batteryLevelDidChange), name: UIDevice.batteryLevelDidChangeNotification, object: nil)
-        updateBatteryStatus() // Update the icon on initial load
+        updateBatteryStatus()
         let isJailbreakEnabled = self.isJailbreakEnabled
         setupUIForJailbreak(isJailbreakEnabled)
         displayFakeIPAddress()
         SystemData.shared.currentUpdateVersion = "XSPSX 1.11 OFW"
         if isJailbreakEnabled {
             let jailbrokenCategoryData = [
-                ["itskeyexe", "Dill353", "log off"],
-                ["Settings", "XSPSX Themes", "System Info", "Transfer Utility", "Debug"],
-                ["Music Player", "Photo Gallery", "Video Player"],
-                ["RetroArch", "Game Zero", "Package Manager", "Update Spoofer", "Stealth Toolbox", "Syscall Enabler"],
-                ["Sign in", "XSPSX Store", "Web Browser"],
-                ["Online:", "Message", "Achievements", "Placeholder"] // Added a placeholder here
+                ["itskeyexe", "Dill353", "log off", "Placeholder1", "Placeholder2", "Placeholder3"],
+                ["System Settings", "System Info", "Transfer Utility", "XSPSX Themes", "Placeholder1", "Debug"],
+                ["Music Player", "Photo Gallery", "Video Player", "Placeholder1", "Placeholder2", "Placeholder3"],
+                ["Save Data", "Games",  "RetroArch", "Game Zero", "Package Manager", "Update Spoofer", "Stealth Toolbox", "Syscall Enabler"],
+                ["Sign in", "XSPSX Store", "Web Browser", "Placeholder1", "Placeholder2", "Placeholder3"],
+                ["Online:", "Message", "Achievements", "Placeholder1", "Placeholder2", "Placeholder3"]
             ]
             categoryData = jailbrokenCategoryData
             customSegmentedControl.setupSegments(imageNames: ["user","settings", "note", "controller", "xspsxinjtrClearPlus", "friends"]) // Replace with your actual image names
@@ -172,9 +227,8 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
             } else {
                 print("errror reloading")
             }
-            
         } else {
-            customSegmentedControl.setupSegments(imageNames: ["user","settings", "note", "controller", "globe", "friends"]) // Replace with your actual image names
+            customSegmentedControl.setupSegments(imageNames: ["user","settings", "note", "controller", "globe", "friends"]) 
             categoryData = nonJailbrokenCategoryData
             if tableView != nil {
                 DispatchQueue.main.async {
@@ -185,72 +239,29 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
             }
         }
     }
-
-
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-
-        // Bring the customSegmentedControl to the front
+        view.bringSubviewToFront(cpuTempLabel)
+        view.bringSubviewToFront(gpuTempLabel)
+        view.bringSubviewToFront(ipAddressLabel)
+        view.bringSubviewToFront(timeDateLabel)
+        view.bringSubviewToFront(batteryIcon)
+        view.bringSubviewToFront(gameThumbnail)
         view.bringSubviewToFront(customSegmentedControl)
-        
-        // Bring the maskViewLayer to the front, just below the customSegmentedControl
-            view.bringSubviewToFront(maskViewLayer)
-            view.bringSubviewToFront(customSegmentedControl) // This should still be the topmost view
-
-            // Set the frame of the maskViewLayer to cover the cells as they scroll under the customSegmentedControl
-            maskViewLayer.frame = CGRect(x: 0, y: customSegmentedControl.frame.maxY, width: view.bounds.width, height: tableView.rowHeight)
-
-
-        // Position the overlayView exactly over the customSegmentedControl
-        let segmentControlFrame = customSegmentedControl.frame
-        maskViewLayer.frame = CGRect(x: segmentControlFrame.minX, y: segmentControlFrame.minY, width: segmentControlFrame.width, height: segmentControlFrame.height)
-        
-        // Set the zPosition if necessary
-        maskViewLayer.layer.zPosition = customSegmentedControl.layer.zPosition - 1
-        
-        // Update the tableView insets if needed
         let topInset = customSegmentedControl.frame.maxY
         tableView.contentInset = UIEdgeInsets(top: topInset, left: 0, bottom: 0, right: 0)
         tableView.scrollIndicatorInsets = tableView.contentInset
     }
-
-
-
-
-
-
-    private func updateCellAppearance(at indexPath: IndexPath, in tableView: UITableView, isHighlighted: Bool) {
-        if let cell = tableView.cellForRow(at: indexPath) {
-            let customCyan = UIColor(hex: "35ceff") ?? .systemCyan
-            let customYellow = UIColor(hex: "d4d300") ?? .white
-            let textColor = isHighlighted ? customCyan : customYellow
-            let attributedString = NSAttributedString(string: cell.textLabel?.text ?? "", attributes: [
-                .foregroundColor: textColor,
-                .font: cell.textLabel?.font ?? UIFont.systemFont(ofSize: 16)
-            ])
-            cell.textLabel?.attributedText = attributedString
-            cell.backgroundColor = .clear
-
-            if isHighlighted {
-                highlightCell(cell, at: indexPath)
-            } else {
-                unhighlightCell(cell, at: indexPath)
-            }
-            func highlightCell(_ cell: UITableViewCell, at indexPath: IndexPath) {
-                // Scale the cell to 110% of its size
-                UIView.animate(withDuration: 0.3) {
-                    cell.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
-                }
-            }
-            func unhighlightCell(_ cell: UITableViewCell, at indexPath: IndexPath) {
-                // Reset the cell to its original size
-                UIView.animate(withDuration: 0.3) {
-                    cell.transform = CGAffineTransform.identity
-                }
-            }
+    @IBAction func themeOptionSelected(_ sender: UIButton) {
+            selectedTheme = themes[sender.tag]
+            coldboot()
+            themeOptionsView.isHidden = true
+            view.sendSubviewToBack(themeOptionsView)
+            tableView.isHidden = false
+            tableView.reloadData()
+            view.bringSubviewToFront(tableView)
+            print("Theme changed and table view updated")
         }
-    }
-    
     @IBAction func unwindFromSystemSettings(segue: UIStoryboardSegue) {
         if let systemSettingsVC = segue.source as? SystemSettingsViewController {
             isJailbreakEnabled = systemSettingsVC.isJailbreakEnabled
@@ -272,118 +283,47 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
     func segmentDidChange(to index: Int) {
         selectedIndex = index
         tableView.isHidden = false
+        gameThumbnail.isHidden = true
         guard selectedIndex < categoryData.count else {
             print("Invalid selectedIndex: \(selectedIndex)")
             return
         }
-
         DispatchQueue.main.async {
             self.tableView.reloadData()
-
             let firstItemIndexPath = IndexPath(row: 0, section: 0)
             if self.tableView.numberOfRows(inSection: 0) > 0 {
                 self.tableView.scrollToRow(at: firstItemIndexPath, at: .top, animated: false)
             }
         }
     }
-
+    private func updateCellAppearance(at indexPath: IndexPath, in tableView: UITableView, isHighlighted: Bool) {
+    }
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        // This is intentionally left empty to preserve default scrolling behavior.
     }
-
-
-
     func highlightCell(_ cell: UITableViewCell, at indexPath: IndexPath) {
-        // Scale the cell to 110% of its size
-        UIView.animate(withDuration: 0.3) {
-            cell.alpha = 1 // Ensure the cell is fully visible when highlighted
-        }
     }
-
     func unhighlightCell(_ cell: UITableViewCell, at indexPath: IndexPath) {
-        // Reset the cell to its original size
-        UIView.animate(withDuration: 0.3) {
-            cell.transform = CGAffineTransform.identity
-            cell.alpha = 1 // Ensure the cell is fully visible when not highlighted
-        }
     }
-  
-    private func updateUIBasedOnJailbreakStatus() {
-        if isJailbreakEnabled {
-            categoryData = jailbrokenCategoryData // Your jailbreak-enabled data array
-            ipAddressLabel.isHidden = false
-            view.bringSubviewToFront(ipAddressLabel)
-            setupUIForJailbreak(isJailbreakEnabled)
-            AudioManager.shared.playBackgroundAudio(fileName:"Dark and Silence")
-        } else {
-            categoryData = nonJailbrokenCategoryData // Your default data array
-            ipAddressLabel.isHidden = true
-            AudioManager.shared.stopBackgroundAudio()
-        }
-        DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
-        displayFakeIPAddress()
-        player?.play()
-    }
-    @objc func batteryLevelDidChange(notification: Notification) {
-        DispatchQueue.main.async {
-            self.updateBatteryStatus()
-        }
-    }
-    func updateBatteryStatus() {
-        UIDevice.current.isBatteryMonitoringEnabled = true
-        let batteryLevel = UIDevice.current.batteryLevel
-        if batteryLevel >= 0.75 {
-            batteryIcon.image = UIImage(named: batteryImageArray[0])
-        } else if batteryLevel >= 0.5 {
-            batteryIcon.image = UIImage(named: batteryImageArray[1])
-        } else if batteryLevel >= 0.25 {
-            batteryIcon.image = UIImage(named: batteryImageArray[2])
-        } else {
-            batteryIcon.image = UIImage(named: batteryImageArray[3])
-        }
-    }
-    @objc func handleAchievementUnlocked(_ notification: Notification) {
-        if let achievement = notification.userInfo?["achievement"] as? Achievement {
-            self.showAlertWithIcon(message: achievement.title, iconName: achievement.iconName)
-        }
-    }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if isJailbreakEnabled {
-            showAlertWithIcon(message: "Eternal!", iconName: "stealth00001")
-        } else {
-            showAlertWithIcon(message: "Welcome to XSPSX!", iconName: "featsTrophy")
-        }
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
-    func animateThumbnailVisibility(to initialAlpha: CGFloat) {
-        gameThumbnail.alpha = initialAlpha
-        gameThumbnail.layer.removeAllAnimations()
-        UIView.animate(withDuration: 1.26, delay: 0, options: [.autoreverse, .repeat], animations: {
-            self.gameThumbnail.alpha = 0.95
-        })
-        self.view.bringSubviewToFront(self.tableView)
-    }
-
-//XMB Styling
+//XMB Styling---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
     func performActionForSelectedItem(_ item: String, inCategory category: String) {
         switch category {
         case "Games":
             switch item {
+            case "Games":
+                AudioManager.shared.playSoundEffect()
+                presentGameCoverViewController()
+            case "Save Data":
+                AudioManager.shared.playSoundEffect()
             case "RetroArch":
                 AudioManager.shared.playSoundEffect()
-                launchEmbeddedApp()
+                launchEmbeddedApp() //try to launch emulator
             case "Game Zero":
                 AudioManager.shared.playSoundEffect()
                 launchGameBootViewController()
             case "Package Manager":
                     if isJailbreakEnabled {
                         AudioManager.shared.playSoundEffect()
-                        showPackageInstallerView()
+                        showPackageManager()
                         showAlertWithIcon(message: "Package Installer Enabled", iconName: "folder")
                     } else {
                         let alert = UIAlertController(title: "[!]Invalid Access[!]", message: "Jailbreak System Software to Enable this Program!", preferredStyle: .alert)
@@ -409,35 +349,24 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
                 if isJailbreakEnabled {
                     AudioManager.shared.playSoundEffect()
                     let alert = UIAlertController(title: "Launching!", message: "Stealth Toolbox", preferredStyle: .alert)
-
-                    // Create an image view with your desired image
                     let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 250, height: 250))
                     imageView.contentMode = .scaleAspectFit
-                    imageView.image = UIImage(named: "stealth00001") // Replace with your image name
-
-                    // Add the image view to the alert
+                    imageView.image = UIImage(named: "stealth00001")
                     alert.view.addSubview(imageView)
-
-                    // Adjust the layout constraints for the image view
                     imageView.translatesAutoresizingMaskIntoConstraints = false
                     NSLayoutConstraint.activate([
                         imageView.centerXAnchor.constraint(equalTo: alert.view.centerXAnchor),
-                        imageView.topAnchor.constraint(equalTo: alert.view.topAnchor, constant: 45), // Adjust constant as needed
-                        imageView.widthAnchor.constraint(equalToConstant: 250), // Adjust size as needed
-                        imageView.heightAnchor.constraint(equalToConstant: 250) // Adjust size as needed
+                        imageView.topAnchor.constraint(equalTo: alert.view.topAnchor, constant: 45),
+                        imageView.widthAnchor.constraint(equalToConstant: 250),
+                        imageView.heightAnchor.constraint(equalToConstant: 250)
                     ])
-
-                    // Present the alert
                     self.present(alert, animated: true, completion: {
-                        // Dismiss the alert after a delay
                         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                             alert.dismiss(animated: true, completion: {
-                                // Prepare and present your new view controller
                                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                                 let newViewController = storyboard.instantiateViewController(withIdentifier: "RsxToolboxViewController")
                                 newViewController.view.alpha = 0
                                 self.present(newViewController, animated: false, completion: {
-                                    // Animate the fade-in of the new view controller's view
                                     UIView.animate(withDuration: 0.3, animations: {
                                         newViewController.view.alpha = 1
                                     })
@@ -446,9 +375,8 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
                         }
                     })
                 } else {
-                    // Handle the non-jailbroken scenario, if applicable
+                    // Handle the non-jailbroken scenario
                     AudioManager.shared.playSoundEffect0()
-                    // Create the alert
                     let alert = UIAlertController(title: "[!]Invalid Access[!]", message: "Jailbreak System Software to Enable this Program!", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
                     self.present(alert, animated: true, completion: nil)
@@ -463,33 +391,21 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
                     // Prepare the alert message
                     let toggleStateMessage = SystemData.shared.syscallToggle ? "Disabled" : "Enabled"
                     let alertMessage = "CFW Syscalls \(toggleStateMessage)"
-                    
-                    // Create a custom view controller that looks like an alert
                     let alertViewController = UIViewController()
                     alertViewController.view.backgroundColor = UIColor.clear
                     alertViewController.modalPresentationStyle = .overFullScreen
-                    
-                    // Define the custom view with a transparent background
                     let customView = UIView()
                     customView.backgroundColor = UIColor.black.withAlphaComponent(0.8) // Semi-transparent black
                     customView.layer.cornerRadius = 10 // Rounded corners
-                    
-                    // Calculate the position for the top-right corner
                     let screenWidth = UIScreen.main.bounds.width
                     let customViewWidth: CGFloat = 260 // Adjust the width as needed
                     let customViewHeight: CGFloat = 80 // Adjust the height as needed
                     let xPosition = screenWidth - customViewWidth - 20 // 20 points padding from the right edge
                     let yPosition: CGFloat = 20 // 20 points padding from the top edge
-                    
-                    // Set the custom view's frame
                     customView.frame = CGRect(x: xPosition, y: yPosition, width: customViewWidth, height: customViewHeight)
-                    
-                    // Create an image view for the trophy icon
                     let trophyImageView = UIImageView(image: UIImage(named: "syscall")) // Add your trophy icon to the assets
                     trophyImageView.contentMode = .scaleAspectFit
                     trophyImageView.frame = CGRect(x: 10, y: 10, width: 60, height: 60)
-                    
-                    // Configure the label for the message
                     let label = UILabel()
                     label.frame = CGRect(x: 80, y: 10, width: customViewWidth - 90, height: 60)
                     label.text = alertMessage
@@ -497,24 +413,15 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
                     label.numberOfLines = 2
                     label.font = UIFont.systemFont(ofSize: 16, weight: .medium)
                     label.textAlignment = .left
-                    
-                    // Add subviews to the custom view
                     customView.addSubview(trophyImageView)
                     customView.addSubview(label)
-                    
-                    // Add the custom view to the view controller's view
                     alertViewController.view.addSubview(customView)
-                    
-                    // Present the alert with a slide-in animation
                     alertViewController.view.alpha = 0
                     self.present(alertViewController, animated: false) {
                         UIView.animate(withDuration: 0.5, animations: {
-                            // Slide and fade-in animation from the top
-                           
                             customView.frame = CGRect(x: xPosition, y: yPosition + 50, width: customViewWidth, height: customViewHeight)
                             alertViewController.view.alpha = 1
                         }, completion: { _ in
-                            // After a delay, slide up and fade out the alert
                             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                                 UIView.animate(withDuration: 0.5, animations: {
                                     customView.frame = CGRect(x: xPosition, y: yPosition, width: customViewWidth, height: customViewHeight)
@@ -550,19 +457,27 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
             }
         case "System":
             switch item {
-            case "Settings":
+            case "System Settings":
                 AudioManager.shared.playSoundEffect()
                 launchSystemSettingsViewController()
-            case "XSPSX":
+            case "System Info":
                 AudioManager.shared.playSoundEffect()
-                // Create the alert
                 let alert = UIAlertController(title: "About XSPSX", message: "Mini iOS Console Developed by itskeyexe", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
+            case "Transfer Utility":
+                AudioManager.shared.playSoundEffect()
+                let alert = UIAlertController(title: "Data Transfer Utility", message: "Send and Recieve Files/Data/Saves/Games to another users console coming soon.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            case "XSPSX Themes":
+                AudioManager.shared.playSoundEffect()
+                print("themes view should be showing")
+                        themeOptionsView.isHidden = false
+                view.bringSubviewToFront(themeOptionsView)
             case "Debug":
                 AudioManager.shared.playSoundEffect()
-                // Create the alert
-                let alert = UIAlertController(title: "[!]Invalid Access[!]", message: "Jailbreak System Software to Enable this Program!", preferredStyle: .alert)
+                let alert = UIAlertController(title: "[!]Invalid Access[!]", message: "You must be a Dev or Jailbreak System Software to Enable this Program!", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Close", style: .default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
             default:
@@ -573,14 +488,12 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
             case "Sign in":
                 AudioManager.shared.playSoundEffect()
                 checkSystemStatusBeforeSignIn() // Then perform system checks
-
             case "XSPSX Store":
                 AudioManager.shared.playSoundEffect()
                   if let storeURL = URL(string: "https://xspsxinjector.me/store.html") {
                       let request = URLRequest(url: storeURL)
                       storeWebView.load(request) // Corrected to use storeWebView
                   }
-
                   storeWebView.isHidden = false
                   UIView.animate(withDuration: 3.0) {
                       self.storeWebView.alpha = 1.0
@@ -604,32 +517,10 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
                 AudioManager.shared.playSoundEffect()
             }
             break
-
+       
         default:
             AudioManager.shared.playSoundEffect()
         }
-    }
-    func compareVersions(_ v1: String, _ v2: String) -> ComparisonResult {
-        // Function to extract the numeric part of the version string
-        func extractNumericVersion(_ version: String) -> [Int] {
-            let components = version.components(separatedBy: CharacterSet.decimalDigits.inverted)
-            return components.compactMap { Int($0) }
-        }
-        let versionNumbers1 = extractNumericVersion(v1)
-        let versionNumbers2 = extractNumericVersion(v2)
-        for (num1, num2) in zip(versionNumbers1, versionNumbers2) {
-            if num1 < num2 {
-                return .orderedAscending
-            } else if num1 > num2 {
-                return .orderedDescending
-            }
-        }
-        return versionNumbers1.count < versionNumbers2.count ? .orderedAscending : versionNumbers1.count > versionNumbers2.count ? .orderedDescending : .orderedSame
-    }
-    func showAlert(message: String) {
-        let alert = UIAlertController(title: "System Check", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
     }
     func loadSignInPage() {
         if let loginURL = URL(string: "https://xspsxinjector.me/login.html") {
@@ -668,35 +559,50 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
     }
     func getThumbnailName(for item: String) -> String {
         switch item {
-        case "RetroArch": return "darkThumbTest0"
-        case "Game Zero": return "gameOver0"
-        case "Package Manager": return "darkThumbTest0"
-        case "Music Player": return "music"
+        case "Games": return "darkThumbTestTemplate"
+        case "Save Data": return "darkThumbTestTemplateSave"
+        case "RetroArch": return "darkThumbTestTemplateRetroArch"
+        case "Game Zero": return "darkThumbTestTemplateGame0"
+        case "Package Manager": return "blankThumb"
+        case "Music Player": return "darkThumbTestTemplateMusic"
         case "Photo Gallery": return "darkThumbTest0"
         case "Video Player": return "darkThumbTest0"
-        case "Sign in": return "blankThumb"
-        case "XSPSX Store": return "storeAlt"
-        case "Web Browser": return "browser"
-        case "Achievements": return "featsTrophy"
-        case "Update Spoofer": return "spoofer"
-        case "Stealth Toolbox": return "darkThumbTest0"
-        case "Syscall Toggler": return "darkThumbTest0"
+        case "Sign in": return "darkThumbTest0"
+        case "XSPSX Store": return "darkThumbTestTemplateStore"
+        case "Web Browser": return "darkThumbTestTemplateBrowser"
+        case "Achievements": return "darkThumbTestTemplateFeats"
+        case "Update Spoofer": return "darkThumbTestTemplateSpoofer"
+        case "Stealth Toolbox": return "darkThumbTestTemplateToolbox"
+        case "Syscall Toggler": return "darkThumbTestTemplateSyscalls"
         default: return "blankThumb"
         }
     }
-    func showPackageInstallerView() {
-        packageInstallerView.isHidden = false
-        packageInstallerView.alpha = 0
-        UIView.animate(withDuration: 3.39) {
-            self.packageInstallerView.alpha = 0.69
-            print("alpha set to 1)")
+    func resetTableViewState() {
+        isFirstTap = true
+        if isJailbreakEnabled {
+            categoryData = jailbrokenCategoryData
+        } else {
+            categoryData = nonJailbrokenCategoryData
         }
-        performStatusLabelAnimation()
-        packageFileHome.reloadData()
+        if let indexPath = selectedIndexPath {
+            tableView.reloadData()
+            tableView.scrollToRow(at: indexPath, at: .top, animated: false)
+        }
+        selectedIndexPath = nil
     }
+//Will be used to handle package manager------------------------------------------------------------------------------------------------------------------------------------------------
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        refreshUI() // Call the refresh method
+    }
+    func refreshUI() {
+            // Reload the table view data
+            tableView.reloadData()
+            // Reset any other UI elements or states as needed
+        }
     func performStatusLabelAnimation() {
         AudioManager.shared.playBackEffect()
-        let messages = [" [!] Initializing. [!] ", "[!] Running Kernel Exploit. [!] ", " [!] Successfully Installed. [!] ", " [!] System Execution now Available. [!]"]
+        let messages = [" [!] Initializing. [!] ", " [!] Running Kernel Exploit. [!] ", " [!] Successfully Installed. [!] ", " [!] System Execution now Available. [!] "]
         let totalDuration = 5.26
         let singleMessageDuration = totalDuration / Double(messages.count)
         for (index, message) in messages.enumerated() {
@@ -709,7 +615,7 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
         }
     }
     func showOtherElementsWithFlicker() {
-        let elementsToShow: [UIView] = [packageFileHome]
+        let elementsToShow: [UIView] = []
         elementsToShow.forEach { $0.isHidden = false }
         elementsToShow.forEach { element in
             UIView.animate(withDuration: 0.1, animations: {
@@ -720,17 +626,15 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
                 }
             }
         }
-        packageFileDirectory.reloadData()
     }
     func showThumbnailForSelectedItem(_ item: String) {
         let thumbnailName = getThumbnailName(for: item)
         gameThumbnail.image = UIImage(named: thumbnailName)
-        gameThumbnail.alpha = 0.69
-        gameThumbnail.layer.removeAllAnimations()
-        UIView.animate(withDuration: 1.26, delay: 0, options: [.autoreverse, .repeat], animations: {
-            self.gameThumbnail.alpha = 0.95
+        gameThumbnail.isHidden = false
+        gameThumbnail.alpha = 0 // Start with transparent
+        UIView.animate(withDuration: 1.0, animations: {
+            self.gameThumbnail.alpha = 1.0 // Animate to fully visible
         })
-        self.view.bringSubviewToFront(self.tableView)
     }
     func addCloseButtonToSignInWebView() {
         let closeButton = UIButton(type: .system)
@@ -780,6 +684,78 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
             })
         })
     }
+    private func updateUIBasedOnJailbreakStatus() {
+          if isJailbreakEnabled {
+              categoryData = jailbrokenCategoryData // Your jailbreak-enabled data array
+              ipAddressLabel.isHidden = false
+              view.bringSubviewToFront(ipAddressLabel)
+              setupUIForJailbreak(isJailbreakEnabled)
+              AudioManager.shared.playBackgroundAudio(fileName:"Dark and Silence")
+          } else {
+              categoryData = nonJailbrokenCategoryData // Your default data array
+              ipAddressLabel.isHidden = true
+              AudioManager.shared.stopBackgroundAudio()
+          }
+          DispatchQueue.main.async {
+                  self.tableView.reloadData()
+              }
+          displayFakeIPAddress()
+          player?.play()
+      }
+      @objc func batteryLevelDidChange(notification: Notification) {
+          DispatchQueue.main.async {
+              self.updateBatteryStatus()
+          }
+      }
+      func updateBatteryStatus() {
+          UIDevice.current.isBatteryMonitoringEnabled = true
+          let batteryLevel = UIDevice.current.batteryLevel
+          if batteryLevel >= 0.75 {
+              batteryIcon.image = UIImage(named: batteryImageArray[0])
+          } else if batteryLevel >= 0.5 {
+              batteryIcon.image = UIImage(named: batteryImageArray[1])
+          } else if batteryLevel >= 0.25 {
+              batteryIcon.image = UIImage(named: batteryImageArray[2])
+          } else {
+              batteryIcon.image = UIImage(named: batteryImageArray[3])
+          }
+      }
+      @objc func handleAchievementUnlocked(_ notification: Notification) {
+          if let achievement = notification.userInfo?["achievement"] as? Achievement {
+              self.showAlertWithIcon(message: achievement.title, iconName: achievement.iconName)
+          }
+      }
+      override func viewDidAppear(_ animated: Bool) {
+          super.viewDidAppear(animated)
+          if isJailbreakEnabled {
+              showAlertWithIcon(message: "ETERNAL!", iconName: "stealth00001")
+              refreshUI()
+          } else {
+              showAlertWithIcon(message: "Welcome to XSPSX!", iconName: "featsTrophy")
+          }
+          DispatchQueue.main.async {
+              self.tableView.reloadData()
+          }
+      }
+// Deep Functions for nav -------------------------------------------------------------------------------------------------------------------------------------------------------------
+    func showPackageManager() {
+        
+        DispatchQueue.main.async {
+            let packageManagerVC = PackageManagerViewController()
+            packageManagerVC.modalPresentationStyle = .overFullScreen // or .overCurrentContext
+            self.present(packageManagerVC, animated: true, completion: nil)
+        }
+       
+
+    }
+    
+    func presentGameCoverViewController() {
+        let gameCoverViewController = GameCoverViewController()
+        DispatchQueue.main.async {
+            self.present(gameCoverViewController, animated: true, completion: nil)
+        }
+    }
+
     func launchSystemSettingsViewController() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let systemSettingsVC = storyboard.instantiateViewController(withIdentifier: "SystemSettingsViewController") as? SystemSettingsViewController else {
@@ -791,7 +767,7 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
     func launchSpooferViewController() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let spooferVC = storyboard.instantiateViewController(withIdentifier: "SpooferViewController") as? SpooferViewController else {
-            return // Failed to instantiate the view controller
+            return
         }
         player?.pause()
         self.present(spooferVC, animated: true, completion: nil)
@@ -799,7 +775,7 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
     func launchVideoPlayerViewController() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let videoPlayerVC = storyboard.instantiateViewController(withIdentifier: "VideoPlayerViewController") as? VideoPlayerViewController else {
-            return // Failed to instantiate the view controller
+            return
         }
         player?.pause()
         self.present(videoPlayerVC, animated: true, completion: nil)
@@ -812,14 +788,33 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
         player?.pause()
         self.present(desktopVC, animated: true, completion: nil)
     }
-    
-
+//RetroArch Launch -----------------------------------------------------------------------------------------------------------------------------------------------------------------
     func launchEmbeddedApp() {
-     
+     //launch the main retroarch emulator
+        //this is the brains of the console
     }
-
-
-    
+    func compareVersions(_ v1: String, _ v2: String) -> ComparisonResult {
+        // Function to extract the numeric part of the version string
+        func extractNumericVersion(_ version: String) -> [Int] {
+            let components = version.components(separatedBy: CharacterSet.decimalDigits.inverted)
+            return components.compactMap { Int($0) }
+        }
+        let versionNumbers1 = extractNumericVersion(v1)
+        let versionNumbers2 = extractNumericVersion(v2)
+        for (num1, num2) in zip(versionNumbers1, versionNumbers2) {
+            if num1 < num2 {
+                return .orderedAscending
+            } else if num1 > num2 {
+                return .orderedDescending
+            }
+        }
+        return versionNumbers1.count < versionNumbers2.count ? .orderedAscending : versionNumbers1.count > versionNumbers2.count ? .orderedDescending : .orderedSame
+    }
+    func showAlert(message: String) {
+        let alert = UIAlertController(title: "System Check", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
     func launchMusicPlayerViewController() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let musicVC = storyboard.instantiateViewController(withIdentifier: "MusicPlayerViewController") as? MusicPlayerViewController else {
@@ -846,7 +841,7 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
         self.present(photoVC, animated: true, completion: nil)
     }
     @IBAction func closePkgButtonPressed(_ sender: Any) {
-        packageInstallerView.isHidden = true
+
     }
     private func startDownloadProcess() {
         let progressView = downloadPkgProgressView(frame: view.bounds)
@@ -877,22 +872,33 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
     }
 
     func coldboot() {
-        guard let path = Bundle.main.path(forResource: "starsXMB", ofType: "mp4") else {
-            return
-        }
-        
-        let player = AVPlayer(url: URL(fileURLWithPath: path))
-        let playerLayer = AVPlayerLayer(player: player)
-        playerLayer.frame = self.view.bounds
-        playerLayer.videoGravity = .resizeAspectFill
-        videoLayer.layer.addSublayer(playerLayer)
-        NotificationCenter.default.addObserver(self, selector: #selector(videoDidFinishPlaying(_:)), name: .AVPlayerItemDidPlayToEndTime, object: player.currentItem)
-        
-        self.player = player
-        self.playerLayer = playerLayer
-        
-        player.play()
-    }
+         // Check if a theme is selected and the video file exists
+         guard let theme = selectedTheme,
+               let path = Bundle.main.path(forResource: theme.videoFileName, ofType: "mp4") else {
+             return
+         }
+
+         // Create an AVPlayer with the video URL
+         let player = AVPlayer(url: URL(fileURLWithPath: path))
+
+         // Create an AVPlayerLayer to display the video
+         let playerLayer = AVPlayerLayer(player: player)
+         playerLayer.frame = self.view.bounds
+         playerLayer.videoGravity = .resizeAspectFill
+
+         // Add the player layer to the view's layer
+         self.view.layer.addSublayer(playerLayer)
+
+         // Observe the notification for when the video finishes playing
+         NotificationCenter.default.addObserver(self, selector: #selector(videoDidFinishPlaying(_:)), name: .AVPlayerItemDidPlayToEndTime, object: player.currentItem)
+
+         // Keep references to the player and player layer
+         self.player = player
+         self.playerLayer = playerLayer
+
+         // Start playing the video
+         player.play()
+     }
     
     @objc func updateDateTimeLabel() {
         let dateFormatter = DateFormatter()
@@ -901,8 +907,6 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
         let formattedDateTime = dateFormatter.string(from: currentDateTime)
         timeDateLabel.text = formattedDateTime
     }
-
-    
     func startUpdatingCPUTempLabel() {
         guard isJailbreakEnabled else {
             return
@@ -910,7 +914,6 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
         updateCPUTempLabel()
         Timer.scheduledTimer(timeInterval: 180.0, target: self, selector: #selector(updateCPUTempLabel), userInfo: nil, repeats: true)
     }
-    
     @objc func updateCPUTempLabel() {
         let randomTemp = Int.random(in: 37...69)
         cpuTempLabel.text = "CPU: \(randomTemp)°C"
@@ -920,7 +923,6 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
         let randomTemp = Int.random(in: 37...69)
         gpuTempLabel.text = "RSX GPU: \(randomTemp)°C"
     }
-    
     func startUpdatingGPUTempLabel() {
         guard isJailbreakEnabled else {
             return
@@ -928,11 +930,9 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
         updateGPUTempLabel()
         Timer.scheduledTimer(timeInterval: 180.0, target: self, selector: #selector(updateGPUTempLabel), userInfo: nil, repeats: true)
     }
-    
     func generateRandomNumber() -> Int {
         return Int.random(in: 0...255)
     }
-    
     @objc func videoDidFinishPlaying(_ notification: Notification) {
         guard let player = player else {
             return
@@ -952,29 +952,24 @@ class XSPSXViewController: UIViewController, AVPlayerViewControllerDelegate, Cus
         // No longer resetting the jailbreak flag here
         // isJailbreakEnabled = false
     }
-
-    // Method to set up the UI elements based on the jailbreak state
-        private func setupUIForJailbreak(_ enabled: Bool) {
+    private func setupUIForJailbreak(_ enabled: Bool) {
             ipAddressLabel.isHidden = !enabled
             // Enable interaction for the UI elements when jailbreak is enabled
             ipAddressLabel.isUserInteractionEnabled = enabled
             print("jailbreak enabled views should be visiblex2")
         }
-   
     @objc func appWillTerminate() {
         // Clear the user defaults to revert to non-jailbreak mode
         // Reset the jailbreak flag when the app is about to terminate
         isJailbreakEnabled = false
         UserDefaults.standard.removeObject(forKey: "isJailbreakEnabled")
     }
-    
     deinit {
         // Remove the observer when the view controller is deallocated
         dateTimer?.invalidate()
         NotificationCenter.default.removeObserver(self, name: UIApplication.didEnterBackgroundNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIApplication.willTerminateNotification, object: nil)
     }
-   
     func relaunchApp() {
         if let url = URL(string: "myapp://xspsxrsx") {
 
@@ -1046,4 +1041,18 @@ class downloadPkgProgressView: UIView {
     }
 }
 
+class Theme {
+    var name: String
+    var videoFileName: String
 
+    init(name: String, videoFileName: String) {
+        self.name = name
+        self.videoFileName = videoFileName
+    }
+}
+
+extension XSPSXViewController: PackageManagerDelegate {
+    func packageManagerDidFinish() {
+        refreshUI()
+    }
+}

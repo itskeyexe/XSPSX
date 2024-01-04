@@ -198,7 +198,7 @@ class UpdateNotificationView: UIView {
         self.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
-        imageView.image = UIImage(named: "stealtheternalClear") // Replace with your image name
+        imageView.image = UIImage(named: "stealth00001") // Replace with your image name
         NSLayoutConstraint.activate([
             imageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
             imageView.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -20),

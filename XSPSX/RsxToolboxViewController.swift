@@ -23,20 +23,24 @@ class RsxToolboxViewController: UIViewController, AVPlayerViewControllerDelegate
             }
         }
     var categoryData = [
-        ["Stealth Toolbox", "CPUP File Manager", "Exit", "Placeholder", "Placeholder1", "Placeholder2"],
-        ["Kernel Tools", "XSPSX Themes", "System Info", "Transfer Utility", "Placeholder1", "Placeholder2"],
-        ["Music Tools", "Photo Gallery", "Video Player", "Placeholder1", "Placeholder2", "Placeholder3"],
-        ["Utilities", "Game Zero", "Placeholder1", "Placeholder2", "Placeholder3", "Placeholder4"],
+        ["Stealth Toolbox", "CPUP File Manager", "Music Tools", "Exit Toolbox", "Placeholder1", "Placeholder2"],
+        ["Kernel Tools", "Flash LV0", "Flash LV1", "CFW Mode", ".rif Licenses", "Kernel Mode"],
+        ["010011100", "Toggle QA Flag", "Aurora Sync", "Placeholder1", "Placeholder2", "Placeholder3"],
+        ["Utilities", "XSPSX Developer Tools", "Placeholder1", "Placeholder2", "Placeholder3", "Placeholder4"],
     ]
+    var optionsData = ["Option 1", "Option 2"]
+    @IBOutlet weak var option1Btn: UIButton!
+    @IBOutlet weak var option2Btn: UIButton!
+    @IBOutlet weak var optionsView: UIView!
     var currentCategory: String?
+    @IBOutlet weak var optionsTableView: UITableView!
     var currentSelectedItem: String?
     let categories = ["Stealth Toolbox", "System Tools", "Music Tools", "Utilities"]
     let musicFiles: [String] = ["Dark and Silence", "Safe House by Feather", "Okean Elzi  -  Obnimi (Callmearco Remix)",  "multiMAN Soundtrack (Official)","Stranger Things Theme Song (C418 REMIX)", "PlayStation 4 System Music - OFFICIAL Home Menu (HIGH QUALITY)"]
     var currentSongIndex = 0
     var selectedSegmentIndex = 0
-
+    var lastSelectedIndexPath: IndexPath?
     @IBOutlet weak var cpuTempLabel: UILabel!
-    @IBOutlet weak var systemToolsButton: UIButton!
     // Add CustomSegmentedControl property
     var customSegmentedControl = CustomSegmentedControl()
     var tableView: UITableView!
@@ -62,16 +66,16 @@ class RsxToolboxViewController: UIViewController, AVPlayerViewControllerDelegate
         setupCustomSegmentedControl()
         isJailbroken = true
         musicToolsView.isHidden = true
+        optionsView.isHidden = true
         setupTableView()
         updateCPUTempLabel()
     }
     private func setupCustomSegmentedControl() {
-        let segmentImages = ["toolbox000", "wrench", "microchip", "folder"] // Replace with actual image names
+        let segmentImages = ["toolbox000", "microchip", "wrench", "folder"] // Replace with actual image names
         customSegmentedControl.configure(withImageNames: segmentImages, selectedIndex: 0)
         customSegmentedControl.customDelegate = self
         view.addSubview(customSegmentedControl)
         customSegmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        // Set constraints for customSegmentedControl
         NSLayoutConstraint.activate([
             customSegmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
             customSegmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -95,29 +99,123 @@ class RsxToolboxViewController: UIViewController, AVPlayerViewControllerDelegate
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: customSegmentedControl.bottomAnchor, constant: 10),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 385), // Increased padding
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -120),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return categoryData[selectedSegmentIndex].count
+        if tableView == optionsTableView {
+            return optionsData.count
+        } else {
+            return categoryData[selectedSegmentIndex].count
+        }
     }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-           let cell = tableView.dequeueReusableCell(withIdentifier: "MenuItemCell", for: indexPath)
-              let rowData = categoryData[selectedSegmentIndex][indexPath.row]
-              cell.textLabel?.text = rowData
-           cell.backgroundColor = .clear
-           cell.imageView?.image = UIImage(named: "wrench")
-           cell.imageView?.contentMode = .scaleAspectFit
-           cell.imageView?.clipsToBounds = true
-           cell.layoutSubviews()
-           return cell
-       }
+        if tableView == optionsTableView {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "OptionsCell", for: indexPath)
+            let option = optionsData[indexPath.row]
+            cell.textLabel?.text = option
+            // Customize the options cell as needed
+            return cell
+        } else {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "MenuItemCell", for: indexPath)
+                let rowData = categoryData[selectedSegmentIndex][indexPath.row]
+                cell.textLabel?.text = rowData
+                cell.backgroundColor = .clear
 
+                // Set and resize the icon image
+                if let iconImage = UIImage(named: "wrench")?.resizedImage(newSize: CGSize(width: 75, height: 75)) { // Adjust size as needed
+                    cell.imageView?.image = iconImage
+                }
+                cell.imageView?.contentMode = .scaleAspectFit
+                cell.imageView?.clipsToBounds = true
+
+                // Custom attributes for text
+                let customYellow = UIColor(hex: "d4d300") ?? .white
+                let fontSize: CGFloat = 17
+                let attributedString = NSAttributedString(string: rowData, attributes: [
+                    .strokeColor: UIColor.black,
+                    .foregroundColor: customYellow,
+                    .strokeWidth: -3.0,
+                    .font: UIFont.systemFont(ofSize: fontSize)
+                ])
+                cell.textLabel?.numberOfLines = 0
+                cell.textLabel?.lineBreakMode = .byWordWrapping
+                cell.textLabel?.attributedText = attributedString
+
+                cell.selectionStyle = .none
+
+                return cell
+        }
+    }
+
+
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let lastIndexPath = lastSelectedIndexPath, lastIndexPath == indexPath {
+            // The same cell was tapped a second time
+            performActionForItem(at: indexPath)
+        } else {
+            lastSelectedIndexPath = indexPath
+            // Normal action for first tap
+        }
+    }
+    
+    private func performActionForItem(at indexPath: IndexPath) {
+        let selectedItem = categoryData[selectedSegmentIndex][indexPath.row]
+        // Add your switch or if-else logic here based on the selectedItem
+        switch selectedItem {
+        case "Exit Toolbox":
+            AudioManager.shared.playSoundEffect()
+            exitButtonPressed(self)
+        case "CPUP File Manager":
+            AudioManager.shared.playSoundEffect()
+            launchDesktopViewController()
+        case "Music Tools":
+            AudioManager.shared.playSoundEffect()
+            musicToolsView.isHidden = false
+        case "Kernel Mode":
+            AudioManager.shared.playSoundEffect()
+            displayOptionsView()
+        case "Toggle QA Flag":
+            AudioManager.shared.playSoundEffect()
+            displayOptionsView()
+        default:
+            break
+        }
+    }
+    
+    func displayOptionsView() {
+        optionsView.isHidden = false
+    }
+
+    @IBAction func option1Pressed(_ sender: Any) {
+        //these functions will set the cfw mode, lv1/2 system calls
+        optionsView.isHidden = true
+        showAlertWithIcon(message: "Option 1 Pressed", iconName: "toolbox000")
+        //set retail mode
+        //set Stealth mode
+        //update the system data
+        //share the new data tot he debug settings page
+    }
+    
+    @IBAction func option2Pressed(_ sender: Any) {
+        //these functions will set the cfw mode, lv1/2 system calls
+        optionsView.isHidden = true
+        showAlertWithIcon(message: "Option 2 Pressed", iconName: "toolbox000")
+        //set retail mode
+        //set Stealth mode
+        //update the system data
+        //share the new data tot he debug settings page
+    }
     func segmentDidChange(to index: Int) {
         // Update the current category based on the selected index
+        AudioManager.shared.playSoundEffect()
         tableView.isHidden = false
+        optionsView.isHidden = true
+        musicToolsView.isHidden = true
         selectedSegmentIndex = index
         tableView.reloadData()
     }
@@ -126,8 +224,8 @@ class RsxToolboxViewController: UIViewController, AVPlayerViewControllerDelegate
         showAlertWithIcon(message: "Welcome to Stealth Toolbox", iconName: "toolbox000")
     }
     @IBAction func systemToolsPressed(_ sender: Any) {
-        AudioManager.shared.playSoundEffect()
-       launchDesktopViewController()
+    AudioManager.shared.playSoundEffect()
+        launchDesktopViewController()
     }
     func launchDesktopViewController() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

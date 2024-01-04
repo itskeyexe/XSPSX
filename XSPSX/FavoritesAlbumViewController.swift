@@ -9,7 +9,7 @@ import UIKit
 import Photos
 
 class FavoritesAlbumViewController: UIViewController {
-    var favoriteAssets: [PHAsset] = []
+    var favoriteImageNames: [String] = ["browser", "music", "spoofer", "profile"]
     let closeButton = UIButton()
     let nextButton = UIButton()
     let previousButton = UIButton()
@@ -23,10 +23,8 @@ class FavoritesAlbumViewController: UIViewController {
         setupCloseButton()
         setupNavigationButtons()
         setupPageControl()
-        fetchFavoritesAlbum()
         view.bringSubviewToFront(imageView)
     }
-    
     func setupImageView() {
         imageView = UIImageView(frame: view.bounds)
         imageView.contentMode = .scaleAspectFit
@@ -34,7 +32,6 @@ class FavoritesAlbumViewController: UIViewController {
         view.addSubview(imageView)
        
     }
-    
     func setupCloseButton() {
         closeButton.setTitle("Close", for: .normal)
         closeButton.backgroundColor = .systemBlue
@@ -48,23 +45,17 @@ class FavoritesAlbumViewController: UIViewController {
             closeButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
-    
     func setupNavigationButtons() {
         nextButton.setTitle("Next", for: .normal)
         previousButton.setTitle("Previous", for: .normal)
-        
         nextButton.backgroundColor = .systemGreen
         previousButton.backgroundColor = .systemRed
-        
         nextButton.addTarget(self, action: #selector(nextPhoto), for: .touchUpInside)
         previousButton.addTarget(self, action: #selector(previousPhoto), for: .touchUpInside)
-        
         view.addSubview(nextButton)
         view.addSubview(previousButton)
-        
         nextButton.translatesAutoresizingMaskIntoConstraints = false
         previousButton.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             nextButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             nextButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
@@ -77,7 +68,6 @@ class FavoritesAlbumViewController: UIViewController {
             previousButton.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
-    
     func setupPageControl() {
         pageControl = UIPageControl(frame: CGRect(x: 0, y: view.frame.height - 50, width: view.frame.width, height: 50))
         pageControl.hidesForSinglePage = true
@@ -90,66 +80,35 @@ class FavoritesAlbumViewController: UIViewController {
         ])
     }
     
+    @objc func closeButtonTapped() {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     @objc func nextPhoto() {
-        if currentPhotoIndex < favoriteAssets.count - 1 {
+        if currentPhotoIndex < favoriteImageNames.count - 1 {
             currentPhotoIndex += 1
             updatePhotoDisplay()
         }
     }
-    
+
     @objc func previousPhoto() {
         if currentPhotoIndex > 0 {
             currentPhotoIndex -= 1
             updatePhotoDisplay()
         }
     }
-    
+
     func updatePhotoDisplay() {
-        let asset = favoriteAssets[currentPhotoIndex]
-        PHImageManager.default().requestImage(for: asset, targetSize: view.frame.size, contentMode: .aspectFit, options: nil) { (image, _) in
-            DispatchQueue.main.async {
-                // If the image is nil, use the default image
-                self.imageView.image = image ?? UIImage(named: "defaultImage")
-                self.pageControl.currentPage = self.currentPhotoIndex
-            }
-        }
+        let imageName = favoriteImageNames[currentPhotoIndex]
+        imageView.image = UIImage(named: imageName) ?? UIImage(named: "defaultImage")
+        pageControl.currentPage = currentPhotoIndex
     }
 
-    
-    @objc func closeButtonTapped() {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    func fetchFavoritesAlbum() {
-        let options = PHFetchOptions()
-        options.predicate = NSPredicate(format: "title = %@", "Favorites")
-        let favoriteAlbums = PHAssetCollection.fetchAssetCollections(with: .album, subtype: .any, options: options)
-        
-        favoriteAlbums.enumerateObjects { (collection, _, _) in
-            let assets = PHAsset.fetchAssets(in: collection, options: nil)
-            assets.enumerateObjects { (asset, _, _) in
-                self.favoriteAssets.append(asset)
-            }
-        }
-        
-        DispatchQueue.main.async {
-            self.pageControl.numberOfPages = self.favoriteAssets.count
-            self.pageControl.isHidden = self.favoriteAssets.isEmpty
-            if let firstAsset = self.favoriteAssets.first {
-                self.setInitialPhoto(asset: firstAsset)
-            }
-        }
-    }
-
-    func setInitialPhoto(asset: PHAsset) {
-        PHImageManager.default().requestImage(for: asset, targetSize: self.view.frame.size, contentMode: .aspectFit, options: nil) { (image, info) in
-            DispatchQueue.main.async {
-                if let error = info?[PHImageErrorKey] as? NSError {
-                    print("Error fetching image: \(error)")
-                }
-                self.imageView.image = image ?? UIImage(named: "defaultImage")
-                self.pageControl.currentPage = self.currentPhotoIndex
-            }
+    func setupInitialPhoto() {
+        if let firstImageName = favoriteImageNames.first {
+            imageView.image = UIImage(named: firstImageName) ?? UIImage(named: "defaultImage")
+            pageControl.numberOfPages = favoriteImageNames.count
+            pageControl.currentPage = currentPhotoIndex
         }
     }
 

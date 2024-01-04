@@ -84,7 +84,7 @@ class VideoPlayerViewController: UIViewController {
          let buttonsStartY: CGFloat = selectVideoButton.frame.maxY + 20  // Adjust as needed for spacing
 
          // Add video selection buttons to this view
-         let buttonTitles = ["(Key) MW2 Terminal +1100", "(Key) MW2 Derail Knife shot", "(Key) MW2 Rust Black hawk Down", "(Key) +550 Terminal", "(Key) +500 Sub Base"]
+         let buttonTitles = ["gentro", "gentro", "gentro", "gentro", "gentro"]
          for (index, title) in buttonTitles.enumerated() {
              let button = UIButton(type: .system)
              button.setTitle(title, for: .normal)

@@ -22,7 +22,7 @@ class UpdateInstallViewController: UIViewController, AVPlayerViewControllerDeleg
     override func viewDidLoad() {
         super.viewDidLoad()
         coldboot()
-        AudioManager.shared.playColdBootSound()
+        AudioManager.shared.playBackEffect()
         // Delay the appearance of the installation view
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.showInstallerView()

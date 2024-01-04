@@ -45,7 +45,7 @@ class ColdBootViewController: UIViewController, AVPlayerViewControllerDelegate {
     }
 
         func coldboot() {
-            guard let path = Bundle.main.path(forResource: "cyan4", ofType: "mp4") else {
+            guard let path = Bundle.main.path(forResource: "5cyan", ofType: "mp4") else {
                 return
             }
             let player = AVPlayer(url: URL(fileURLWithPath: path))

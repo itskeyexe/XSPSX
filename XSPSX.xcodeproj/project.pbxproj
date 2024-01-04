@@ -8,13 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		F2066FA22B2E87820016F70B /* Kingdom Hearts - OST.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F2066FA12B2E87820016F70B /* Kingdom Hearts - OST.mp3 */; };
-		F2183AF82B13DD2F00FC3A54 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = F2183AF72B13DD2F00FC3A54 /* README.txt */; };
 		F2183AFA2B13DE7B00FC3A54 /* multiMAN Soundtrack (Official).mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F2183AF92B13DE7B00FC3A54 /* multiMAN Soundtrack (Official).mp3 */; };
 		F21AA16F2B2533C40067DDCD /* FavoritesAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21AA16E2B2533C40067DDCD /* FavoritesAlbumViewController.swift */; };
-		F21AA1712B254DB60067DDCD /* (Key) MW2 Terminal +1100.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = F21AA1702B254DB50067DDCD /* (Key) MW2 Terminal +1100.mp4 */; };
-		F21AA1732B254DE20067DDCD /* (Key) MW2 Derail Knife shot.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = F21AA1722B254DE20067DDCD /* (Key) MW2 Derail Knife shot.mp4 */; };
-		F21AA1752B254DEF0067DDCD /* (Key) MW2 Rust Black hawk Down.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = F21AA1742B254DEF0067DDCD /* (Key) MW2 Rust Black hawk Down.mp4 */; };
-		F21AA1792B2551A20067DDCD /* (Key) +550 Terminal.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = F21AA1782B2551A20067DDCD /* (Key) +550 Terminal.mp4 */; };
 		F21AA17B2B255E510067DDCD /* Stranger Things Theme Song (C418 REMIX).mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F21AA17A2B255E510067DDCD /* Stranger Things Theme Song (C418 REMIX).mp3 */; };
 		F21AA17D2B25675B0067DDCD /* ColdbootNewest.wav in Resources */ = {isa = PBXBuildFile; fileRef = F21AA17C2B25675B0067DDCD /* ColdbootNewest.wav */; };
 		F21AA17F2B2567640067DDCD /* lobbyMusic.wav in Resources */ = {isa = PBXBuildFile; fileRef = F21AA17E2B2567640067DDCD /* lobbyMusic.wav */; };
@@ -24,7 +19,6 @@
 		F22BDA2E2B09EE2600905AB1 /* titleSong.wav in Resources */ = {isa = PBXBuildFile; fileRef = F22BDA2D2B09EE2600905AB1 /* titleSong.wav */; };
 		F231DC072B12C8100007C748 /* Okean Elzi  -  Obnimi (Callmearco Remix).mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F231DC062B12C8100007C748 /* Okean Elzi  -  Obnimi (Callmearco Remix).mp3 */; };
 		F231DC092B12C8D30007C748 /* UpdateInstallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F231DC082B12C8D30007C748 /* UpdateInstallViewController.swift */; };
-		F2367E5A2B0C59C2002AA348 /* CFW.png in Resources */ = {isa = PBXBuildFile; fileRef = F2367E592B0C59C2002AA348 /* CFW.png */; };
 		F2367E5C2B0C59DA002AA348 /* packageInstallerIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = F2367E5B2B0C59DA002AA348 /* packageInstallerIcon.png */; };
 		F2367E5E2B0C59E5002AA348 /* patched.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = F2367E5D2B0C59E5002AA348 /* patched.jpeg */; };
 		F2367E602B0C59EF002AA348 /* supporterToken.png in Resources */ = {isa = PBXBuildFile; fileRef = F2367E5F2B0C59EF002AA348 /* supporterToken.png */; };
@@ -48,13 +42,17 @@
 		F245D5F62B0EF221002A57CD /* Safe House by Feather.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F245D5F52B0EF220002A57CD /* Safe House by Feather.mp3 */; };
 		F245D5FE2B0F031D002A57CD /* tomowatchi.png in Resources */ = {isa = PBXBuildFile; fileRef = F245D5FD2B0F031D002A57CD /* tomowatchi.png */; };
 		F245D6002B0F0327002A57CD /* TomoWatchiIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = F245D5FF2B0F0327002A57CD /* TomoWatchiIcon.png */; };
+		F24CC36D2B451C3A006466E5 /* playBoot.wav in Resources */ = {isa = PBXBuildFile; fileRef = F24CC36C2B451C3A006466E5 /* playBoot.wav */; };
+		F24CC36F2B4535F1006466E5 /* GameCoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F24CC36E2B4535F1006466E5 /* GameCoverViewController.swift */; };
 		F25284D92B215B4C00384F20 /* pupFM0.png in Resources */ = {isa = PBXBuildFile; fileRef = F25284D82B215B4C00384F20 /* pupFM0.png */; };
 		F2711F882B20317000FA56DA /* epponDreamy.wav in Resources */ = {isa = PBXBuildFile; fileRef = F2711F872B20317000FA56DA /* epponDreamy.wav */; };
 		F2711F8A2B20317700FA56DA /* epponStyle.wav in Resources */ = {isa = PBXBuildFile; fileRef = F2711F892B20317700FA56DA /* epponStyle.wav */; };
+		F2725A7C2B46554A003B1E11 /* 5cyan.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = F2725A7B2B46554A003B1E11 /* 5cyan.mp4 */; };
 		F280D7562B27C983005690CF /* PlayStation 4 System Music - OFFICIAL Home Menu (HIGH QUALITY).mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F280D7552B27C983005690CF /* PlayStation 4 System Music - OFFICIAL Home Menu (HIGH QUALITY).mp3 */; };
 		F280D7702B27E0B0005690CF /* 17cyan.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = F280D76F2B27E0B0005690CF /* 17cyan.mp4 */; };
 		F280D7722B27F097005690CF /* AchievementManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F280D7712B27F097005690CF /* AchievementManager.swift */; };
 		F29510542B098DD100FA33C3 /* Game Game in Resources */ = {isa = PBXBuildFile; fileRef = F29510532B098DD100FA33C3 /* Game Game */; };
+		F2A0638C2B436BE700B49758 /* PackageManagerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A0638B2B436BE700B49758 /* PackageManagerViewController.swift */; };
 		F2A321EB2A775D4400CA39C6 /* rsxXploit.png in Resources */ = {isa = PBXBuildFile; fileRef = F2A321EA2A775D4400CA39C6 /* rsxXploit.png */; };
 		F2A321ED2A775DD000CA39C6 /* cutie.png in Resources */ = {isa = PBXBuildFile; fileRef = F2A321EC2A775DD000CA39C6 /* cutie.png */; };
 		F2A321F32A77795A00CA39C6 /* sexySelect.wav in Resources */ = {isa = PBXBuildFile; fileRef = F2A321F22A77795A00CA39C6 /* sexySelect.wav */; };
@@ -94,12 +92,10 @@
 		F2BE764A2A7A11F3008261F5 /* pupIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = F2BE76492A7A11F3008261F5 /* pupIcon.png */; };
 		F2C0B3112B2EC81400048D1C /* cold00.wav in Resources */ = {isa = PBXBuildFile; fileRef = F2C0B3102B2EC81400048D1C /* cold00.wav */; };
 		F2C0B3132B2EC92100048D1C /* cold000.wav in Resources */ = {isa = PBXBuildFile; fileRef = F2C0B3122B2EC92100048D1C /* cold000.wav */; };
-		F2C0B3152B2ED01000048D1C /* (Key) +500 Sub Base.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = F2C0B3142B2ED01000048D1C /* (Key) +500 Sub Base.mp4 */; };
 		F2C2C76F2B297B5F002DB087 /* psClick.wav in Resources */ = {isa = PBXBuildFile; fileRef = F2C2C76E2B297B5F002DB087 /* psClick.wav */; };
 		F2C2C7712B298509002DB087 /* War Drums Meditation.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F2C2C7702B298509002DB087 /* War Drums Meditation.mp3 */; };
 		F2CC91772B008C6400C927CC /* MusicPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CC91762B008C6400C927CC /* MusicPlayerViewController.swift */; };
 		F2CE85A42B3275E600E90745 /* AltKit in Frameworks */ = {isa = PBXBuildFile; productRef = F2CE85A32B3275E600E90745 /* AltKit */; };
-		F2CE85A62B3282B900E90745 /* 5cyan.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = F2CE85A52B3282B900E90745 /* 5cyan.mp4 */; };
 		F2D15CBD2B0B01AC000D69D4 /* xspsxinjtr.png in Resources */ = {isa = PBXBuildFile; fileRef = F2D15CBC2B0B01AC000D69D4 /* xspsxinjtr.png */; };
 		F2D15CBF2B0B026B000D69D4 /* xspsxinjtrClear.png in Resources */ = {isa = PBXBuildFile; fileRef = F2D15CBE2B0B026B000D69D4 /* xspsxinjtrClear.png */; };
 		F2D43BA72B2027E7009820E7 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D43BA62B2027E7009820E7 /* MessageViewController.swift */; };
@@ -132,33 +128,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		F2CE859B2B3273AD00E90745 /* PBXContainerItemProxy */ = {
+		F2B2A8A32B32B26200ED1C73 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = F2CE85952B3273AD00E90745 /* RetroArch_iOS13.xcodeproj */;
+			containerPortal = F2B2A89D2B32B26200ED1C73 /* RetroArch_iOS13.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 9204BE2B1D319EF300BD49DB;
 			remoteInfo = RetroArchiOS;
 		};
-		F2CE859D2B3273AD00E90745 /* PBXContainerItemProxy */ = {
+		F2B2A8A52B32B26200ED1C73 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = F2CE85952B3273AD00E90745 /* RetroArch_iOS13.xcodeproj */;
+			containerPortal = F2B2A89D2B32B26200ED1C73 /* RetroArch_iOS13.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 926C77D721FD1E6500103EDE;
 			remoteInfo = RetroArchTV;
 		};
-		F2CE859F2B3273AD00E90745 /* PBXContainerItemProxy */ = {
+		F2B2A8A72B32B26200ED1C73 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = F2CE85952B3273AD00E90745 /* RetroArch_iOS13.xcodeproj */;
+			containerPortal = F2B2A89D2B32B26200ED1C73 /* RetroArch_iOS13.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 9292D6E128F549D000E47A75;
 			remoteInfo = RetroArchWidgetExtensionExtension;
-		};
-		F2CE85A12B32742900E90745 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = F2CE85952B3273AD00E90745 /* RetroArch_iOS13.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 9204BE091D319EF300BD49DB;
-			remoteInfo = RetroArchiOS;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -177,13 +166,8 @@
 
 /* Begin PBXFileReference section */
 		F2066FA12B2E87820016F70B /* Kingdom Hearts - OST.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Kingdom Hearts - OST.mp3"; sourceTree = "<group>"; };
-		F2183AF72B13DD2F00FC3A54 /* README.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.txt; sourceTree = "<group>"; };
 		F2183AF92B13DE7B00FC3A54 /* multiMAN Soundtrack (Official).mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "multiMAN Soundtrack (Official).mp3"; sourceTree = "<group>"; };
 		F21AA16E2B2533C40067DDCD /* FavoritesAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesAlbumViewController.swift; sourceTree = "<group>"; };
-		F21AA1702B254DB50067DDCD /* (Key) MW2 Terminal +1100.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "(Key) MW2 Terminal +1100.mp4"; sourceTree = "<group>"; };
-		F21AA1722B254DE20067DDCD /* (Key) MW2 Derail Knife shot.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "(Key) MW2 Derail Knife shot.mp4"; sourceTree = "<group>"; };
-		F21AA1742B254DEF0067DDCD /* (Key) MW2 Rust Black hawk Down.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "(Key) MW2 Rust Black hawk Down.mp4"; sourceTree = "<group>"; };
-		F21AA1782B2551A20067DDCD /* (Key) +550 Terminal.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "(Key) +550 Terminal.mp4"; sourceTree = "<group>"; };
 		F21AA17A2B255E510067DDCD /* Stranger Things Theme Song (C418 REMIX).mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Stranger Things Theme Song (C418 REMIX).mp3"; sourceTree = "<group>"; };
 		F21AA17C2B25675B0067DDCD /* ColdbootNewest.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ColdbootNewest.wav; sourceTree = "<group>"; };
 		F21AA17E2B2567640067DDCD /* lobbyMusic.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = lobbyMusic.wav; sourceTree = "<group>"; };
@@ -193,7 +177,6 @@
 		F22BDA2D2B09EE2600905AB1 /* titleSong.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = titleSong.wav; sourceTree = "<group>"; };
 		F231DC062B12C8100007C748 /* Okean Elzi  -  Obnimi (Callmearco Remix).mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Okean Elzi  -  Obnimi (Callmearco Remix).mp3"; sourceTree = "<group>"; };
 		F231DC082B12C8D30007C748 /* UpdateInstallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateInstallViewController.swift; sourceTree = "<group>"; };
-		F2367E592B0C59C2002AA348 /* CFW.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CFW.png; path = ../../../../../Documents/xspsxInjectorHTML/CFW.png; sourceTree = "<group>"; };
 		F2367E5B2B0C59DA002AA348 /* packageInstallerIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = packageInstallerIcon.png; sourceTree = "<group>"; };
 		F2367E5D2B0C59E5002AA348 /* patched.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = patched.jpeg; sourceTree = "<group>"; };
 		F2367E5F2B0C59EF002AA348 /* supporterToken.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = supporterToken.png; sourceTree = "<group>"; };
@@ -217,16 +200,21 @@
 		F245D5F52B0EF220002A57CD /* Safe House by Feather.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Safe House by Feather.mp3"; sourceTree = "<group>"; };
 		F245D5FD2B0F031D002A57CD /* tomowatchi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tomowatchi.png; sourceTree = "<group>"; };
 		F245D5FF2B0F0327002A57CD /* TomoWatchiIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TomoWatchiIcon.png; sourceTree = "<group>"; };
+		F24CC36C2B451C3A006466E5 /* playBoot.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = playBoot.wav; path = ../../../../Downloads/playBoot.wav; sourceTree = "<group>"; };
+		F24CC36E2B4535F1006466E5 /* GameCoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCoverViewController.swift; sourceTree = "<group>"; };
 		F25284D82B215B4C00384F20 /* pupFM0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pupFM0.png; sourceTree = "<group>"; };
 		F2711F872B20317000FA56DA /* epponDreamy.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = epponDreamy.wav; sourceTree = "<group>"; };
 		F2711F892B20317700FA56DA /* epponStyle.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = epponStyle.wav; sourceTree = "<group>"; };
+		F2725A7B2B46554A003B1E11 /* 5cyan.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = 5cyan.mp4; path = ../../../../Downloads/5cyan.mp4; sourceTree = "<group>"; };
 		F280D7552B27C983005690CF /* PlayStation 4 System Music - OFFICIAL Home Menu (HIGH QUALITY).mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "PlayStation 4 System Music - OFFICIAL Home Menu (HIGH QUALITY).mp3"; sourceTree = "<group>"; };
 		F280D76F2B27E0B0005690CF /* 17cyan.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = 17cyan.mp4; sourceTree = "<group>"; };
 		F280D7712B27F097005690CF /* AchievementManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AchievementManager.swift; sourceTree = "<group>"; };
 		F29510532B098DD100FA33C3 /* Game Game */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Game Game"; sourceTree = "<group>"; };
+		F2A0638B2B436BE700B49758 /* PackageManagerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageManagerViewController.swift; sourceTree = "<group>"; };
 		F2A321EA2A775D4400CA39C6 /* rsxXploit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rsxXploit.png; sourceTree = "<group>"; };
 		F2A321EC2A775DD000CA39C6 /* cutie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cutie.png; sourceTree = "<group>"; };
 		F2A321F22A77795A00CA39C6 /* sexySelect.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sexySelect.wav; sourceTree = "<group>"; };
+		F2B2A89D2B32B26200ED1C73 /* RetroArch_iOS13.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RetroArch_iOS13.xcodeproj; path = ../RetroArch/pkg/apple/RetroArch_iOS13.xcodeproj; sourceTree = "<group>"; };
 		F2B3251F2A6F9AD70054B5CB /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		F2B325212A6FA1520054B5CB /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		F2B3FC332B0DC40F00EF1530 /* landscapeInjector.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = landscapeInjector.jpeg; sourceTree = "<group>"; };
@@ -263,12 +251,9 @@
 		F2BE76492A7A11F3008261F5 /* pupIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pupIcon.png; sourceTree = "<group>"; };
 		F2C0B3102B2EC81400048D1C /* cold00.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = cold00.wav; sourceTree = "<group>"; };
 		F2C0B3122B2EC92100048D1C /* cold000.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = cold000.wav; sourceTree = "<group>"; };
-		F2C0B3142B2ED01000048D1C /* (Key) +500 Sub Base.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "(Key) +500 Sub Base.mp4"; sourceTree = "<group>"; };
 		F2C2C76E2B297B5F002DB087 /* psClick.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = psClick.wav; sourceTree = "<group>"; };
 		F2C2C7702B298509002DB087 /* War Drums Meditation.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "War Drums Meditation.mp3"; sourceTree = "<group>"; };
 		F2CC91762B008C6400C927CC /* MusicPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayerViewController.swift; sourceTree = "<group>"; };
-		F2CE85952B3273AD00E90745 /* RetroArch_iOS13.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RetroArch_iOS13.xcodeproj; path = ../../RetroArch/pkg/apple/RetroArch_iOS13.xcodeproj; sourceTree = "<group>"; };
-		F2CE85A52B3282B900E90745 /* 5cyan.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; name = 5cyan.mp4; path = ../../../../../Downloads/5cyan.mp4; sourceTree = "<group>"; };
 		F2D15CBC2B0B01AC000D69D4 /* xspsxinjtr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xspsxinjtr.png; sourceTree = "<group>"; };
 		F2D15CBE2B0B026B000D69D4 /* xspsxinjtrClear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = xspsxinjtrClear.png; sourceTree = "<group>"; };
 		F2D43BA62B2027E7009820E7 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
@@ -315,6 +300,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F2B2A89E2B32B26200ED1C73 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F2B2A8A42B32B26200ED1C73 /* RetroArch.app */,
+				F2B2A8A62B32B26200ED1C73 /* RetroArchTV.app */,
+				F2B2A8A82B32B26200ED1C73 /* RetroArchWidgetExtensionExtension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		F2B3251E2A6F9AD70054B5CB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -366,7 +361,6 @@
 				F2367E6D2B0C5E1D002AA348 /* devToken.png */,
 				F2367E5D2B0C59E5002AA348 /* patched.jpeg */,
 				F2BDEAD62A732A4500B172C8 /* xploit.png */,
-				F2367E592B0C59C2002AA348 /* CFW.png */,
 				F2E025742B048D06001AE9CD /* 109.png */,
 				F2B3FC432B0DF36100EF1530 /* xstore.png */,
 				F2A321EA2A775D4400CA39C6 /* rsxXploit.png */,
@@ -393,18 +387,13 @@
 				F2DAF9A52B06950A006117D2 /* 2cyan.mov */,
 				F2DAF9A72B06950E006117D2 /* 3xmbCyan.mov */,
 				F2426A772B2FD26F006156FB /* cyan4.mp4 */,
-				F2CE85A52B3282B900E90745 /* 5cyan.mp4 */,
 				F238F5242B28E0A40021B199 /* Xray.mp4 */,
+				F2725A7B2B46554A003B1E11 /* 5cyan.mp4 */,
 				F238F5262B28E0AF0021B199 /* underwaterXMB.mp4 */,
 				F238F5282B28E0B30021B199 /* starsXMB.mp4 */,
 				F280D76F2B27E0B0005690CF /* 17cyan.mp4 */,
 				F238F5222B28DB370021B199 /* 18cyan.mp4 */,
 				F23F35E82B170A3800D69D2E /* gentro.mp4 */,
-				F21AA1702B254DB50067DDCD /* (Key) MW2 Terminal +1100.mp4 */,
-				F21AA1722B254DE20067DDCD /* (Key) MW2 Derail Knife shot.mp4 */,
-				F21AA1742B254DEF0067DDCD /* (Key) MW2 Rust Black hawk Down.mp4 */,
-				F21AA1782B2551A20067DDCD /* (Key) +550 Terminal.mp4 */,
-				F2C0B3142B2ED01000048D1C /* (Key) +500 Sub Base.mp4 */,
 			);
 			path = "coldboot Rsc";
 			sourceTree = "<group>";
@@ -425,6 +414,7 @@
 				F2BAA2BD2A719A8A00530BDB /* selectCute2.wav */,
 				F2BAA2C32A71A66A00530BDB /* coldbootFinal.wav */,
 				F2711F872B20317000FA56DA /* epponDreamy.wav */,
+				F24CC36C2B451C3A006466E5 /* playBoot.wav */,
 				F2711F892B20317700FA56DA /* epponStyle.wav */,
 				F2A321F22A77795A00CA39C6 /* sexySelect.wav */,
 				F2C2C76E2B297B5F002DB087 /* psClick.wav */,
@@ -441,21 +431,10 @@
 			path = Sounds;
 			sourceTree = "<group>";
 		};
-		F2CE85962B3273AD00E90745 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				F2CE859C2B3273AD00E90745 /* RetroArch.app */,
-				F2CE859E2B3273AD00E90745 /* RetroArchTV.app */,
-				F2CE85A02B3273AD00E90745 /* RetroArchWidgetExtensionExtension.appex */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		F2DA0D822A678ECA005826D0 = {
 			isa = PBXGroup;
 			children = (
-				F2CE85952B3273AD00E90745 /* RetroArch_iOS13.xcodeproj */,
-				F2183AF72B13DD2F00FC3A54 /* README.txt */,
+				F2B2A89D2B32B26200ED1C73 /* RetroArch_iOS13.xcodeproj */,
 				F2DA0D8D2A678ECA005826D0 /* XSPSX */,
 				F2DA0D8C2A678ECA005826D0 /* Products */,
 				F2B3251E2A6F9AD70054B5CB /* Frameworks */,
@@ -500,7 +479,9 @@
 				F2B325212A6FA1520054B5CB /* WebViewController.swift */,
 				F2BAA2B12A70D71600530BDB /* SystemSettingsViewController.swift */,
 				F2BDEADC2A7358FE00B172C8 /* RsxToolboxViewController.swift */,
+				F2A0638B2B436BE700B49758 /* PackageManagerViewController.swift */,
 				F2BB1A9E2B1ED9A200C99C1D /* SpooferViewController.swift */,
+				F24CC36E2B4535F1006466E5 /* GameCoverViewController.swift */,
 				F2DA0D942A678ECA005826D0 /* Main.storyboard */,
 				F2DA0D9A2A678ECD005826D0 /* Assets.xcassets */,
 				F2DA0D9C2A678ECD005826D0 /* LaunchScreen.storyboard */,
@@ -526,7 +507,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				F2CE85A22B32742900E90745 /* PBXTargetDependency */,
 			);
 			name = XSPSX;
 			packageProductDependencies = (
@@ -564,8 +544,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = F2CE85962B3273AD00E90745 /* Products */;
-					ProjectRef = F2CE85952B3273AD00E90745 /* RetroArch_iOS13.xcodeproj */;
+					ProductGroup = F2B2A89E2B32B26200ED1C73 /* Products */;
+					ProjectRef = F2B2A89D2B32B26200ED1C73 /* RetroArch_iOS13.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -576,25 +556,25 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		F2CE859C2B3273AD00E90745 /* RetroArch.app */ = {
+		F2B2A8A42B32B26200ED1C73 /* RetroArch.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = RetroArch.app;
-			remoteRef = F2CE859B2B3273AD00E90745 /* PBXContainerItemProxy */;
+			remoteRef = F2B2A8A32B32B26200ED1C73 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		F2CE859E2B3273AD00E90745 /* RetroArchTV.app */ = {
+		F2B2A8A62B32B26200ED1C73 /* RetroArchTV.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
 			path = RetroArchTV.app;
-			remoteRef = F2CE859D2B3273AD00E90745 /* PBXContainerItemProxy */;
+			remoteRef = F2B2A8A52B32B26200ED1C73 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		F2CE85A02B3273AD00E90745 /* RetroArchWidgetExtensionExtension.appex */ = {
+		F2B2A8A82B32B26200ED1C73 /* RetroArchWidgetExtensionExtension.appex */ = {
 			isa = PBXReferenceProxy;
 			fileType = "wrapper.app-extension";
 			path = RetroArchWidgetExtensionExtension.appex;
-			remoteRef = F2CE859F2B3273AD00E90745 /* PBXContainerItemProxy */;
+			remoteRef = F2B2A8A72B32B26200ED1C73 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -612,7 +592,6 @@
 				F2BAA2BC2A717D0B00530BDB /* selectCute.wav in Resources */,
 				F245D5FE2B0F031D002A57CD /* tomowatchi.png in Resources */,
 				F2E025752B048D06001AE9CD /* 109.png in Resources */,
-				F21AA1712B254DB60067DDCD /* (Key) MW2 Terminal +1100.mp4 in Resources */,
 				F2BB1A9B2B1ED38700C99C1D /* vision.png in Resources */,
 				F2BAA2E02A72379F00530BDB /* Back.wav in Resources */,
 				F2B3FC4A2B0DF39700EF1530 /* gameOver.png in Resources */,
@@ -632,15 +611,13 @@
 				F21AA17F2B2567640067DDCD /* lobbyMusic.wav in Resources */,
 				F2711F8A2B20317700FA56DA /* epponStyle.wav in Resources */,
 				F22204B72B2AAF13005282A8 /* feat unlocked.wav in Resources */,
+				F2725A7C2B46554A003B1E11 /* 5cyan.mp4 in Resources */,
 				F245D6002B0F0327002A57CD /* TomoWatchiIcon.png in Resources */,
 				F2BE76402A7A097D008261F5 /* toolboxIcon.png in Resources */,
 				F238F5252B28E0A40021B199 /* Xray.mp4 in Resources */,
 				F2C2C7712B298509002DB087 /* War Drums Meditation.mp3 in Resources */,
 				F245D5F02B0EEB25002A57CD /* login.html in Resources */,
 				F2B3FC502B0DF56700EF1530 /* gameZero.png in Resources */,
-				F21AA1732B254DE20067DDCD /* (Key) MW2 Derail Knife shot.mp4 in Resources */,
-				F2CE85A62B3282B900E90745 /* 5cyan.mp4 in Resources */,
-				F21AA1792B2551A20067DDCD /* (Key) +550 Terminal.mp4 in Resources */,
 				F2DAF9B02B07267A006117D2 /* sfx_sysenter.wav in Resources */,
 				F2BB1A9D2B1ED65C00C99C1D /* pupIcon0.png in Resources */,
 				F2E32A8C2B12F83200D05BD0 /* index.html in Resources */,
@@ -652,6 +629,7 @@
 				F2B3FC382B0DC6DC00EF1530 /* safari0.jpeg in Resources */,
 				F21AA1812B2568370067DDCD /* cold0.wav in Resources */,
 				F2BE764A2A7A11F3008261F5 /* pupIcon.png in Resources */,
+				F24CC36D2B451C3A006466E5 /* playBoot.wav in Resources */,
 				F245D5EE2B0EEB1B002A57CD /* account.html in Resources */,
 				F2DA0D9E2A678ECD005826D0 /* LaunchScreen.storyboard in Resources */,
 				F2711F882B20317000FA56DA /* epponDreamy.wav in Resources */,
@@ -670,7 +648,6 @@
 				F2367E642B0C5A03002AA348 /* toolboxpkg.jpeg in Resources */,
 				F231DC072B12C8100007C748 /* Okean Elzi  -  Obnimi (Callmearco Remix).mp3 in Resources */,
 				F25284D92B215B4C00384F20 /* pupFM0.png in Resources */,
-				F2183AF82B13DD2F00FC3A54 /* README.txt in Resources */,
 				F2066FA22B2E87820016F70B /* Kingdom Hearts - OST.mp3 in Resources */,
 				F2D15CBD2B0B01AC000D69D4 /* xspsxinjtr.png in Resources */,
 				F2BDEAD72A732A4500B172C8 /* xploit.png in Resources */,
@@ -684,18 +661,15 @@
 				F2D15CBF2B0B026B000D69D4 /* xspsxinjtrClear.png in Resources */,
 				F245D5F62B0EF221002A57CD /* Safe House by Feather.mp3 in Resources */,
 				F2DAF9B22B07267A006117D2 /* sfxSelect.wav in Resources */,
-				F2C0B3152B2ED01000048D1C /* (Key) +500 Sub Base.mp4 in Resources */,
 				F2DAF9A92B06950E006117D2 /* 1cyan.mov in Resources */,
 				F2367E6C2B0C5CC8002AA348 /* stepOne.png in Resources */,
 				F2367E602B0C59EF002AA348 /* supporterToken.png in Resources */,
 				F2E32A862B12EF5300D05BD0 /* se.png in Resources */,
-				F2367E5A2B0C59C2002AA348 /* CFW.png in Resources */,
 				F2DAF9AA2B06950E006117D2 /* 3xmbCyan.mov in Resources */,
 				F238F5272B28E0AF0021B199 /* underwaterXMB.mp4 in Resources */,
 				F2183AFA2B13DE7B00FC3A54 /* multiMAN Soundtrack (Official).mp3 in Resources */,
 				F2E32A882B12F81900D05BD0 /* seBlack.png in Resources */,
 				F2DA0D962A678ECA005826D0 /* Main.storyboard in Resources */,
-				F21AA1752B254DEF0067DDCD /* (Key) MW2 Rust Black hawk Down.mp4 in Resources */,
 				F2E32A8A2B12F82300D05BD0 /* toolboxNew.png in Resources */,
 				F245D5EC2B0EEB12002A57CD /* about.html in Resources */,
 				F2B3FC482B0DF38C00EF1530 /* gameplay.png in Resources */,
@@ -710,6 +684,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2D65E0B2B1BC764009400CD /* CustomTableViewCell.swift in Sources */,
+				F2A0638C2B436BE700B49758 /* PackageManagerViewController.swift in Sources */,
 				F2DA0D992A678ECA005826D0 /* XSPSX.xcdatamodeld in Sources */,
 				F21AA16F2B2533C40067DDCD /* FavoritesAlbumViewController.swift in Sources */,
 				F2BB1A9F2B1ED9A200C99C1D /* SpooferViewController.swift in Sources */,
@@ -726,6 +701,7 @@
 				F2D43BA72B2027E7009820E7 /* MessageViewController.swift in Sources */,
 				F2BDEADD2A7358FE00B172C8 /* RsxToolboxViewController.swift in Sources */,
 				F2E6CEF62B0882D0004C5965 /* UIColor+Extensions.swift in Sources */,
+				F24CC36F2B4535F1006466E5 /* GameCoverViewController.swift in Sources */,
 				F2BAA2B42A70F78D00530BDB /* AudioManager.swift in Sources */,
 				F238F52B2B28E5B40021B199 /* CustomSegmentedControlDelegate.swift in Sources */,
 				F280D7722B27F097005690CF /* AchievementManager.swift in Sources */,
@@ -738,14 +714,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		F2CE85A22B32742900E90745 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = RetroArchiOS;
-			targetProxy = F2CE85A12B32742900E90745 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		F2DA0D942A678ECA005826D0 /* Main.storyboard */ = {
